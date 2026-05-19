@@ -2,7 +2,7 @@ import Link from "next/link";
 import Logo from "./logo";
 export default function Navbar() {
   return (
-    <nav className="flex">
+    <nav className="flex text-white py-2">
       <div className="mr-auto">
         <Logo />
       </div>
