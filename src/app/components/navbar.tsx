@@ -1,5 +1,6 @@
-import Link from "next/link";
 import Logo from "./logo";
+import NavLink from "./navlink";
+
 export default function Navbar() {
   return (
     <nav className="flex text-white py-2">
@@ -7,11 +8,11 @@ export default function Navbar() {
         <Logo />
       </div>
       <div className="flex gap-6 items-center font-semibold">
-        <Link href="/">Home</Link>
-        <Link href="/play">Play</Link>
-        <Link href="/#about">About</Link>
-        <Link href="/login">Login</Link>
-        <Link href="/signup">Sign up</Link>
+        <NavLink url="/">Home</NavLink>
+        <NavLink url="/play">Play</NavLink>
+        <NavLink url="/#about">About</NavLink>
+        <NavLink url="/login">Login</NavLink>
+        <NavLink url="/signup">Sign up</NavLink>
       </div>
     </nav>
   );

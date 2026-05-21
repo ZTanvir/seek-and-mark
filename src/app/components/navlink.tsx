@@ -6,14 +6,16 @@ import { cn } from "@/lib/utils";
 type NavLinkProps = {
   children: React.ReactNode;
   url: string;
+  className?: string;
 };
 
-export default function NavLink({ children, url }: NavLinkProps) {
+export default function NavLink({ children, className, url }: NavLinkProps) {
   const pathname = usePathname();
   const isActive = pathname.startsWith(url);
+
   return (
     <Link
-      className={cn("", isActive ? "text-purple-500" : "text-white")}
+      className={cn(className, isActive ? "text-purple-500" : "text-white")}
       href={url}
     >
       {children}
