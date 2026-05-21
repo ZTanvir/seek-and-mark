@@ -15,7 +15,11 @@ export default function NavLink({ children, className, url }: NavLinkProps) {
 
   return (
     <Link
-      className={cn(className, isActive ? "text-purple-500" : "text-white")}
+      className={cn(
+        className,
+        "hover:text-purple-500 hover:bg-purple-200 py-2 md:hover:bg-transparent transition-colors duration-200",
+        isActive ? "text-purple-500" : "text-white",
+      )}
       href={url}
     >
       {children}

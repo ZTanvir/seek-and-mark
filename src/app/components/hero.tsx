@@ -5,7 +5,7 @@ import heroImage from "../../../public/images/carl-raw-m3hn2Kn5Bns-unsplash.jpg"
 
 export default function HeroSection() {
   return (
-    <div className="relative h-[600px] overflow-hidden">
+    <div className="relative h-[600px]  md:h-[600px] overflow-hidden">
       <Image
         src={heroImage}
         alt="website home page background"
@@ -20,7 +20,7 @@ export default function HeroSection() {
         <header>
           <Navbar />
         </header>
-        <div className="h-full flex flex-col justify-center items-center">
+        <div className="mt-14 md:mt-0 h-full flex flex-col justify-center items-center">
           <h1 className="text-white text-center text-4xl font-bold capitalize">
             Welcome to Seek And Mark
           </h1>
