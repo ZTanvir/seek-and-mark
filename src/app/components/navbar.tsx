@@ -6,7 +6,7 @@ export default function Navbar() {
       <div className="mr-auto">
         <Logo />
       </div>
-      <div className="flex gap-4 items-center">
+      <div className="flex gap-6 items-center font-semibold">
         <Link href="/">Home</Link>
         <Link href="/play">Play</Link>
         <Link href="/#about">About</Link>
