@@ -1,4 +1,4 @@
-import HeroSection from "../components/hero";
+import HeroSection from "../../components/hero";
 export default function MarketingPage() {
   return (
     <div className="flex flex-col flex-1">

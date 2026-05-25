@@ -6,9 +6,9 @@ import { HamburgerMenuIcon } from "@radix-ui/react-icons";
 import { cn } from "@/lib/utils";
 
 export default function Navbar() {
-  const [toggleNavbar, setToggleNavbar] = useState(true);
+  const [toggleNavbar, setToggleNavbar] = useState(false);
   return (
-    <nav className="fixed top-0 w-full bg-purple-900 md:bg-transparent">
+    <nav className="sticky top-0 w-full bg-purple-900 md:bg-transparent">
       <div className="flex gap-6 flex-col md:flex-row text-white ">
         <div className="flex justify-between md:mr-auto pt-2">
           <Logo />
