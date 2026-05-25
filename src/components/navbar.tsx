@@ -27,7 +27,7 @@ export default function Navbar() {
           )}
         >
           <NavLink url="/">Home</NavLink>
-          <NavLink url="/play">Play</NavLink>
+          <NavLink url="/games">Games</NavLink>
           <NavLink url="/#about">About</NavLink>
           <NavLink url="/login">Login</NavLink>
           <NavLink url="/signup">Sign up</NavLink>

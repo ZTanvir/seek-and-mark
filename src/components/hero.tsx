@@ -6,7 +6,7 @@ import Container from "./container";
 
 export default function HeroSection() {
   return (
-    <div className="relative h-[600px] md:h-[600px] ">
+    <div className="relative h-[600px] md:h-[600px]">
       <Image
         src={heroImage}
         alt="website home page background"
@@ -28,9 +28,9 @@ export default function HeroSection() {
             </h1>
             <Link
               className="bg-purple-500 font-semibold hover:bg-purple-400 px-8 mt-2 py-3 text-xl text-white rounded"
-              href="/play"
+              href="/games"
             >
-              Play
+              Games
             </Link>
           </div>
         </div>
