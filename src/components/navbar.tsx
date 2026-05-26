@@ -9,7 +9,7 @@ export default function Navbar() {
   const [toggleNavbar, setToggleNavbar] = useState(false);
   return (
     <nav className="sticky top-0 w-full bg-purple-900 md:bg-transparent">
-      <div className="flex gap-6 flex-col md:flex-row text-white ">
+      <div className="flex gap-6 flex-col md:flex-row">
         <div className="flex justify-between md:mr-auto pt-2">
           <Logo />
           <HamburgerMenuIcon
