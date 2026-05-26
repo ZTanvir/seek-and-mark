@@ -1,4 +1,3 @@
-import Navbar from "@/components/navbar";
 import Container from "@/components/container";
 
 export default function GamesLayout({
@@ -8,12 +7,7 @@ export default function GamesLayout({
 }>) {
   return (
     <div className="bg-cyan-800/80 w-full h-screen">
-      <Container>
-        <header>
-          <Navbar />
-        </header>
-        {children}
-      </Container>
+      <Container>{children}</Container>
     </div>
   );
 }
