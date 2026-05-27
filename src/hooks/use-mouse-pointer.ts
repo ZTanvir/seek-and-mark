@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
 
+type MousePointer = {
+  x: number;
+  y: number;
+};
+
 export function useMousePointer() {
-  const [mouseCoordinate, setMouseCoordinate] = useState<{
-    x: number | null;
-    y: number | null;
-  }>({
-    x: null,
-    y: null,
-  });
+  const [mouseCoordinate, setMouseCoordinate] = useState<MousePointer | null>(
+    null,
+  );
 
   useEffect(() => {
     function clickEvent(event: MouseEvent) {
