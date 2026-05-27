@@ -1,3 +1,4 @@
+import GameUi from "@/components/game-ui";
 export default async function GamePlayPage({
   params,
 }: {
@@ -7,7 +8,7 @@ export default async function GamePlayPage({
   console.log(gameName);
   return (
     <div className="cursor-custom w-full h-full ">
-      <h1>Robot city</h1>
+      <GameUi />
     </div>
   );
 }
