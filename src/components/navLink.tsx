@@ -12,7 +12,7 @@ type NavLinkProps = {
 export default function NavLink({ children, className, url }: NavLinkProps) {
   const pathname = usePathname();
   const isActive = pathname.startsWith(url);
-  console.log("is active", url, pathname, isActive);
+  // console.log("is active", url, pathname, isActive);
   return (
     <Link
       className={cn(
