@@ -1,6 +1,8 @@
 "use client";
 import { useClickOutside } from "@/hooks/use-click-outside";
 import { useRef, useState } from "react";
+import CountDownTimer from "./count-down-timer";
+
 export default function GameUi() {
   const [characterBoxState, setCharacterBoxState] = useState({
     x: 0,
@@ -30,6 +32,9 @@ export default function GameUi() {
 
   return (
     <div onClick={handleAreaClick} className="w-full h-full overflow-hidden">
+      <header>
+        <CountDownTimer />
+      </header>
       {characterBoxState.visible && (
         <section
           onClick={handleClickInside}
