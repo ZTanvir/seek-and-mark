@@ -7,7 +7,26 @@ export default function CountDownTimer() {
   const [timer, setTimer] = useState("00:00:00");
 
   useEffect(() => {
-    const timerId = setInterval(() => {}, 1000);
+    const formatTimer = (time: number, reset: number) => {
+      if (time >= reset) {
+        return `00`;
+      }
+      return `${time}`.padStart(2, "0");
+    };
+    const timerId = setInterval(() => {
+      setTimer((prev) => {
+        const time = prev.split(":");
+        const seconds = parseInt(time[2]) + 1;
+        const minutes =
+          seconds === 60 ? parseInt(time[1]) + 1 : parseInt(time[1]);
+        const hours =
+          minutes === 60 ? parseInt(time[0]) + 1 : parseInt(time[0]);
+        const formatSeconds = formatTimer(seconds, 60);
+        const formatMinutes = formatTimer(minutes, 60);
+        const formatHours = formatTimer(hours, 24);
+        return `${formatHours}:${formatMinutes}:${formatSeconds}`;
+      });
+    }, 1 / 100000);
     return () => clearInterval(timerId);
   }, []);
 
