@@ -5,9 +5,5 @@ export default function GamesLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return (
-    <div className="bg-cyan-800/80 w-full h-screen">
-      <Container>{children}</Container>
-    </div>
-  );
+  return <div className="bg-cyan-800/80 w-full h-screen">{children}</div>;
 }

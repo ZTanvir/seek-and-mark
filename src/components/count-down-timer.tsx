@@ -26,7 +26,7 @@ export default function CountDownTimer() {
         const formatHours = formatTimer(hours, 24);
         return `${formatHours}:${formatMinutes}:${formatSeconds}`;
       });
-    }, 1 / 100000);
+    }, 1000);
     return () => clearInterval(timerId);
   }, []);
 

@@ -1,7 +1,9 @@
 "use client";
+import Image from "next/image";
 import { useClickOutside } from "@/hooks/use-click-outside";
 import { useRef, useState } from "react";
 import CountDownTimer from "./count-down-timer";
+import robotCityImg from "../../public/images/games/main-robotcity.webp";
 
 export default function GameUi() {
   const [characterBoxState, setCharacterBoxState] = useState({
@@ -27,14 +29,33 @@ export default function GameUi() {
     const adjustMouseCenterPoint = 10;
     const xAxis = event.clientX + adjustMouseCenterPoint;
     const yAxis = event.clientY + adjustMouseCenterPoint;
+    console.log("coordinate", event.clientX, event.clientY);
     setCharacterBoxState({ x: xAxis, y: yAxis, visible: true });
   }
 
+  function handleImageClick(event: React.MouseEvent<HTMLImageElement>) {
+    const rect = event.currentTarget.getBoundingClientRect();
+    console.log("image", rect);
+
+    const xPixel = event.clientX - rect.left;
+    const yPixel = event.clientY - rect.top;
+    const xPercent = (xPixel / rect.width) * 100;
+    const yPercent = (yPixel / rect.height) * 100;
+    console.log("pixel", xPercent, yPercent);
+  }
+
   return (
-    <div onClick={handleAreaClick} className="w-full h-full overflow-hidden">
-      <header>
+    <div onClick={handleAreaClick} className="relative w-full min-h-screen">
+      <header className="fixed z-1">
         <CountDownTimer />
       </header>
+      <Image
+        onClick={handleImageClick}
+        src={robotCityImg}
+        priority={true}
+        alt="robot city"
+        className="absolute w-full h-auto"
+      />
       {characterBoxState.visible && (
         <section
           onClick={handleClickInside}
@@ -43,9 +64,9 @@ export default function GameUi() {
             left: characterBoxState.x,
             top: characterBoxState.y,
           }}
-          className="fixed select-none"
+          className="fixed select-none z-1"
         >
-          <ul className="bg-gray-900/50 w-50 rounded-lg overflow-hidden">
+          <ul className="bg-gray-900/70 w-50 rounded-lg overflow-hidden">
             <li
               data-character="dog"
               className="p-2 text-center hover:bg-purple-300 transition-colors duration-200"
