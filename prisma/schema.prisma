@@ -19,7 +19,7 @@ model User {
 
 model Map {
   id           Int         @id @default(autoincrement())
-  name         String
+  name         String      @unique
   thumbnailUrl String
   imageUrl     String
   createdAt    DateTime    @default(now())
