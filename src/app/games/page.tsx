@@ -32,7 +32,7 @@ export default async function Game() {
                 </figcaption>
               </figure>
               <Link
-                href="/games/robo-city"
+                href={`/games/${item.name}`}
                 className="px-2 py-3 self-center inline-block bg-cyan-400 rounded-lg hover:cursor-pointer"
               >
                 Start game
