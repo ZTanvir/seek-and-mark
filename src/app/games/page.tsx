@@ -2,7 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import roboCityThumbnail from "../../../public/images/games/robot-city-thumbnail.webp";
 import Navbar from "@/components/navbar";
-export default function Game() {
+import prisma from "@/lib/prisma";
+export default async function Game() {
   return (
     <>
       <header>
