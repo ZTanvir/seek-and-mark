@@ -1,10 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import Navbar from "@/components/navbar";
-import { getMap } from "@/lib/dal/db-query";
+import { getMaps } from "@/lib/dal/db-query";
 
 export default async function Game() {
-  const maps = await getMap();
+  const maps = await getMaps();
 
   return (
     <>

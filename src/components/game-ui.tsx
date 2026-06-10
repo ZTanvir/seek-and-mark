@@ -3,9 +3,13 @@ import Image from "next/image";
 import { useClickOutside } from "@/hooks/use-click-outside";
 import { useRef, useState } from "react";
 import CountDownTimer from "./count-down-timer";
-import robotCityImg from "../../public/images/games/main-robotcity.webp";
 
-export default function GameUi() {
+type GameUi = {
+  gameImage: string;
+};
+
+export default function GameUi({ gameImage }: GameUi) {
+  console.log("game image", gameImage);
   const [characterBoxState, setCharacterBoxState] = useState({
     x: 0,
     y: 0,
@@ -51,9 +55,11 @@ export default function GameUi() {
       </header>
       <Image
         onClick={handleImageClick}
-        src={robotCityImg}
+        src={gameImage}
         priority={true}
         alt="robot city"
+        width={1920}
+        height={2689}
         className="absolute w-full h-auto"
       />
       {characterBoxState.visible && (
