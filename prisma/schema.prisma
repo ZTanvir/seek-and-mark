@@ -18,12 +18,25 @@ model User {
 }
 
 model Map {
-  id           Int      @id @default(autoincrement())
+  id           Int         @id @default(autoincrement())
   name         String
   thumbnailUrl String
   imageUrl     String
-  createdAt    DateTime @default(now())
+  createdAt    DateTime    @default(now())
   users        User[]
+  character    Character[]
+}
+
+model Character {
+  id        Int    @id @default(autoincrement())
+  name      String
+  avatarUrl String
+  xMin      Float
+  yMin      Float
+  xMax      Float
+  yMax      Float
+  map       Map    @relation(fields: [mapId], references: [id])
+  mapId     Int
 }
 
 model Leaderboard {
