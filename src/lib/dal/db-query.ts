@@ -16,6 +16,9 @@ export async function getMapByName(mapName: string) {
       where: {
         name: mapName,
       },
+      include: {
+        characters: true,
+      },
     });
     return map;
   } catch (error) {

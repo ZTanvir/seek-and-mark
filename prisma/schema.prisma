@@ -24,7 +24,7 @@ model Map {
   imageUrl     String
   createdAt    DateTime    @default(now())
   users        User[]
-  character    Character[]
+  characters   Character[]
 }
 
 model Character {
@@ -35,7 +35,7 @@ model Character {
   yMin      Float
   xMax      Float
   yMax      Float
-  map       Map    @relation(fields: [mapId], references: [id])
+  map       Map    @relation(fields: [mapId], references: [id], onDelete: Cascade)
   mapId     Int
 }
 

@@ -8,13 +8,20 @@ type GameUi = {
   gameImage: string;
 };
 
+type CharacterLocation = {
+  xPercent: number;
+  yPercent: number;
+};
+
 export default function GameUi({ gameImage }: GameUi) {
-  console.log("game image", gameImage);
   const [characterBoxState, setCharacterBoxState] = useState({
     x: 0,
     y: 0,
     visible: false,
   });
+  const [characterLocation, setCharacterLocation] =
+    useState<null | CharacterLocation>(null);
+
   const selectCharacterRef = useRef(null!);
   useClickOutside(selectCharacterRef, handleClickOutside);
 
@@ -26,6 +33,7 @@ export default function GameUi({ gameImage }: GameUi) {
     console.log("coordinate", characterBoxState);
     const target = event.target as HTMLElement;
     console.log(target.dataset.character);
+    console.log("characterLocation", characterLocation);
   }
 
   function handleAreaClick(event: React.MouseEvent<HTMLDivElement>) {
@@ -38,14 +46,18 @@ export default function GameUi({ gameImage }: GameUi) {
   }
 
   function handleImageClick(event: React.MouseEvent<HTMLImageElement>) {
+    if (characterBoxState.visible) return;
     const rect = event.currentTarget.getBoundingClientRect();
-    console.log("image", rect);
 
     const xPixel = event.clientX - rect.left;
     const yPixel = event.clientY - rect.top;
-    const xPercent = (xPixel / rect.width) * 100;
-    const yPercent = (yPixel / rect.height) * 100;
+    const xPercent = ((xPixel / rect.width) * 100).toFixed(2);
+    const yPercent = ((yPixel / rect.height) * 100).toFixed(2);
     console.log("pixel", xPercent, yPercent);
+    setCharacterLocation({
+      xPercent: parseFloat(xPercent),
+      yPercent: parseFloat(yPercent),
+    });
   }
 
   return (
