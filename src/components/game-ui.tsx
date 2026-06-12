@@ -33,8 +33,7 @@ export default function GameUi({ gameImage, characters }: GameUi) {
   }
 
   function handleClickInside(event: React.MouseEvent) {
-    console.log("coordinate", characterBoxState);
-    const target = event.target as HTMLElement;
+    const target = event.currentTarget as HTMLElement;
     console.log(target.dataset.character);
     console.log("characterLocation", characterLocation);
   }
@@ -42,9 +41,9 @@ export default function GameUi({ gameImage, characters }: GameUi) {
   function handleAreaClick(event: React.MouseEvent<HTMLDivElement>) {
     if (characterBoxState.visible) return;
     const adjustMouseCenterPoint = 10;
-    const xAxis = event.clientX + adjustMouseCenterPoint;
-    const yAxis = event.clientY + adjustMouseCenterPoint;
-    console.log("coordinate", event.clientX, event.clientY);
+    const xAxis = event.pageX + adjustMouseCenterPoint;
+    const yAxis = event.pageY + adjustMouseCenterPoint;
+    console.log("coordinate", { x: event.pageX, y: event.pageY });
     setCharacterBoxState({ x: xAxis, y: yAxis, visible: true });
   }
 
@@ -56,7 +55,7 @@ export default function GameUi({ gameImage, characters }: GameUi) {
     const yPixel = event.clientY - rect.top;
     const xPercent = ((xPixel / rect.width) * 100).toFixed(2);
     const yPercent = ((yPixel / rect.height) * 100).toFixed(2);
-    console.log("pixel", xPercent, yPercent);
+    // console.log("pixel", xPercent, yPercent);
     setCharacterLocation({
       xPercent: parseFloat(xPercent),
       yPercent: parseFloat(yPercent),
@@ -67,7 +66,7 @@ export default function GameUi({ gameImage, characters }: GameUi) {
     <div onClick={handleAreaClick} className="relative min-h-screen w-full">
       <header className="fixed z-1 flex w-full justify-between p-4">
         <Logo />
-        <div className="flex gap-2">
+        <div className="flex gap-4">
           {characters.map((character) => (
             <Image
               key={character.id}
@@ -92,17 +91,17 @@ export default function GameUi({ gameImage, characters }: GameUi) {
       />
       {characterBoxState.visible && (
         <section
-          onClick={handleClickInside}
           ref={selectCharacterRef}
           style={{
             left: characterBoxState.x,
             top: characterBoxState.y,
           }}
-          className="absolute z-1 select-none"
+          className="absolute z-2 min-w-[250px] select-none"
         >
-          <ul className="w-50 overflow-hidden rounded-lg bg-gray-900/90">
+          <ul className="w-full overflow-hidden rounded-lg bg-gray-900/90">
             {characters.map((character) => (
               <li
+                onClick={handleClickInside}
                 key={character.id}
                 data-character={character.id}
                 className="flex items-center gap-2 p-3 transition-colors duration-200 hover:bg-purple-300"
@@ -115,7 +114,7 @@ export default function GameUi({ gameImage, characters }: GameUi) {
                   className="flex h-[50px] w-[50px] rounded-xl object-cover object-top"
                   alt={character.name}
                 />
-                <span className="font-3xl text-purple-500">
+                <span className="font-3xl font-bold text-purple-500">
                   {character.name}
                 </span>
               </li>
