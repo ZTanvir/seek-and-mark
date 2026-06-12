@@ -3,9 +3,12 @@ import Image from "next/image";
 import { useClickOutside } from "@/hooks/use-click-outside";
 import { useRef, useState } from "react";
 import CountDownTimer from "./count-down-timer";
+import { Character } from "@/generated/prisma/client";
+import Logo from "./logo";
 
 type GameUi = {
   gameImage: string;
+  characters: Character[];
 };
 
 type CharacterLocation = {
@@ -13,7 +16,7 @@ type CharacterLocation = {
   yPercent: number;
 };
 
-export default function GameUi({ gameImage }: GameUi) {
+export default function GameUi({ gameImage, characters }: GameUi) {
   const [characterBoxState, setCharacterBoxState] = useState({
     x: 0,
     y: 0,
@@ -61,8 +64,21 @@ export default function GameUi({ gameImage }: GameUi) {
   }
 
   return (
-    <div onClick={handleAreaClick} className="relative w-full min-h-screen">
-      <header className="fixed z-1">
+    <div onClick={handleAreaClick} className="relative min-h-screen w-full">
+      <header className="fixed z-1 flex w-full justify-between p-4">
+        <Logo />
+        <div className="flex gap-2">
+          {characters.map((character) => (
+            <Image
+              key={character.id}
+              src={character.avatarUrl}
+              width={200}
+              height={200}
+              className="h-[70px] w-[100px] rounded-xl border-2 border-purple-500 object-cover object-top"
+              alt={character.name}
+            />
+          ))}
+        </div>
         <CountDownTimer />
       </header>
       <Image
@@ -72,7 +88,7 @@ export default function GameUi({ gameImage }: GameUi) {
         alt="robot city"
         width={1920}
         height={2689}
-        className="absolute w-full h-auto"
+        className="absolute h-auto w-full"
       />
       {characterBoxState.visible && (
         <section
@@ -82,21 +98,28 @@ export default function GameUi({ gameImage }: GameUi) {
             left: characterBoxState.x,
             top: characterBoxState.y,
           }}
-          className="fixed select-none z-1"
+          className="absolute z-1 select-none"
         >
-          <ul className="bg-gray-900/70 w-50 rounded-lg overflow-hidden">
-            <li
-              data-character="dog"
-              className="p-2 text-center hover:bg-purple-300 transition-colors duration-200"
-            >
-              dog
-            </li>
-            <li
-              data-character="cat"
-              className="p-2 text-center hover:bg-purple-200 transition-colors duration-200"
-            >
-              cat
-            </li>
+          <ul className="w-50 overflow-hidden rounded-lg bg-gray-900/90">
+            {characters.map((character) => (
+              <li
+                key={character.id}
+                data-character={character.id}
+                className="flex items-center gap-2 p-3 transition-colors duration-200 hover:bg-purple-300"
+              >
+                <Image
+                  key={character.id}
+                  src={character.avatarUrl}
+                  width={50}
+                  height={50}
+                  className="flex h-[50px] w-[50px] rounded-xl object-cover object-top"
+                  alt={character.name}
+                />
+                <span className="font-3xl text-purple-500">
+                  {character.name}
+                </span>
+              </li>
+            ))}
           </ul>
         </section>
       )}

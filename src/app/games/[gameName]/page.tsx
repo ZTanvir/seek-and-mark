@@ -11,7 +11,7 @@ export default async function GamePlayPage({
   console.log("map", map);
   return (
     <div className="cursor-custom w-full h-full ">
-      {map && <GameUi gameImage={map.imageUrl} />}
+      {map && <GameUi gameImage={map.imageUrl} characters={map.characters} />}
     </div>
   );
 }
