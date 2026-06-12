@@ -26,6 +26,7 @@ export default function GameUi({ gameImage, characters }: GameUi) {
     useState<null | CharacterLocation>(null);
 
   const selectCharacterRef = useRef(null!);
+  const headerRef = useRef<HTMLElement>(null!);
   useClickOutside(selectCharacterRef, handleClickOutside);
 
   function handleClickOutside() {
@@ -39,7 +40,11 @@ export default function GameUi({ gameImage, characters }: GameUi) {
   }
 
   function handleAreaClick(event: React.MouseEvent<HTMLDivElement>) {
-    if (characterBoxState.visible) return;
+    if (
+      headerRef.current.contains(event.target as Node) ||
+      characterBoxState.visible
+    )
+      return;
     const adjustMouseCenterPoint = 10;
     const xAxis = event.pageX + adjustMouseCenterPoint;
     const yAxis = event.pageY + adjustMouseCenterPoint;
@@ -64,7 +69,10 @@ export default function GameUi({ gameImage, characters }: GameUi) {
 
   return (
     <div onClick={handleAreaClick} className="relative min-h-screen w-full">
-      <header className="fixed z-1 flex w-full justify-between p-4">
+      <header
+        ref={headerRef}
+        className="fixed z-1 flex w-full justify-between p-4"
+      >
         <Logo />
         <div className="flex gap-4">
           {characters.map((character) => (
