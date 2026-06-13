@@ -1,11 +1,12 @@
 "use client";
 import Image from "next/image";
 import { useClickOutside } from "@/hooks/use-click-outside";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import CountDownTimer from "./count-down-timer";
 import { Character } from "@/generated/prisma/client";
 import Logo from "./logo";
 import { validateCharacter } from "@/actions/game";
+import { useToastContext } from "@/hooks/context";
 
 type GameUi = {
   gameImage: string;
@@ -29,6 +30,7 @@ export default function GameUi({ gameImage, characters }: GameUi) {
   const selectCharacterRef = useRef(null!);
   const headerRef = useRef<HTMLElement>(null!);
   useClickOutside(selectCharacterRef, handleClickOutside);
+  const { addToast } = useToastContext();
 
   function handleClickOutside() {
     setCharacterBoxState((prev) => ({ ...prev, visible: false }));
@@ -41,8 +43,13 @@ export default function GameUi({ gameImage, characters }: GameUi) {
       characterLocation.xPercent,
       characterLocation.yPercent,
     );
-    setCharacterBoxState((prev) => ({ ...prev, visible: false }));
     console.log("result validation:", result);
+    if (result.success) {
+      addToast(result.message, "success");
+    } else {
+      addToast(result.message, "error");
+    }
+    setCharacterBoxState((prev) => ({ ...prev, visible: false }));
   }
 
   function handleAreaClick(event: React.MouseEvent<HTMLDivElement>) {
@@ -73,6 +80,10 @@ export default function GameUi({ gameImage, characters }: GameUi) {
     });
   }
 
+  useEffect(() => {
+    addToast("Let play", "warning");
+  }, []);
+
   return (
     <div onClick={handleAreaClick} className="relative min-h-screen w-full">
       <header
@@ -101,7 +112,7 @@ export default function GameUi({ gameImage, characters }: GameUi) {
         alt="robot city"
         width={1920}
         height={2689}
-        className="absolute h-auto w-full"
+        className="absolute min-h-[2689px] min-w-[1920px] overflow-auto"
       />
       {characterBoxState.visible && (
         <section
