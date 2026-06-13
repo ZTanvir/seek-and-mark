@@ -5,6 +5,7 @@ import { useRef, useState } from "react";
 import CountDownTimer from "./count-down-timer";
 import { Character } from "@/generated/prisma/client";
 import Logo from "./logo";
+import { validateCharacter } from "@/actions/game";
 
 type GameUi = {
   gameImage: string;
@@ -33,10 +34,15 @@ export default function GameUi({ gameImage, characters }: GameUi) {
     setCharacterBoxState((prev) => ({ ...prev, visible: false }));
   }
 
-  function handleClickInside(event: React.MouseEvent) {
-    const target = event.currentTarget as HTMLElement;
-    console.log(target.dataset.character);
-    console.log("characterLocation", characterLocation);
+  async function handleClickInside(characterId: number) {
+    if (!characterLocation) return;
+    const result = await validateCharacter(
+      characterId,
+      characterLocation.xPercent,
+      characterLocation.yPercent,
+    );
+    setCharacterBoxState((prev) => ({ ...prev, visible: false }));
+    console.log("result validation:", result);
   }
 
   function handleAreaClick(event: React.MouseEvent<HTMLDivElement>) {
@@ -109,7 +115,7 @@ export default function GameUi({ gameImage, characters }: GameUi) {
           <ul className="w-full overflow-hidden rounded-lg bg-gray-900/90">
             {characters.map((character) => (
               <li
-                onClick={handleClickInside}
+                onClick={() => handleClickInside(character.id)}
                 key={character.id}
                 data-character={character.id}
                 className="flex items-center gap-2 p-3 transition-colors duration-200 hover:bg-purple-300"
@@ -119,10 +125,10 @@ export default function GameUi({ gameImage, characters }: GameUi) {
                   src={character.avatarUrl}
                   width={50}
                   height={50}
-                  className="flex h-[50px] w-[50px] rounded-xl object-cover object-top"
+                  className="h-[50px] w-[50px] rounded-xl object-cover object-top"
                   alt={character.name}
                 />
-                <span className="font-3xl font-bold text-purple-500">
+                <span className="text-md font-bold text-purple-500">
                   {character.name}
                 </span>
               </li>

@@ -25,3 +25,16 @@ export async function getMapByName(mapName: string) {
     console.error(`error on getting ${mapName} map data`, error);
   }
 }
+
+export async function getCharacterById(characterId: number) {
+  try {
+    const character = await prisma.character.findUnique({
+      where: {
+        id: characterId,
+      },
+    });
+    return character;
+  } catch (error) {
+    console.error("error on getting character:", error);
+  }
+}

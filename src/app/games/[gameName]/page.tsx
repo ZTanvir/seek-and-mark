@@ -8,9 +8,9 @@ export default async function GamePlayPage({
 }) {
   const { gameName } = await params;
   const map = await getMapByName(gameName);
-  console.log("map", map);
+  // console.log("map", map);
   return (
-    <div className="cursor-custom w-full h-full ">
+    <div className="cursor-custom h-full w-full">
       {map && <GameUi gameImage={map.imageUrl} characters={map.characters} />}
     </div>
   );
