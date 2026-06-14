@@ -14,7 +14,7 @@ export default async function GamePlayPage({
   return (
     <div className="cursor-custom relative h-full w-full">
       {map && character && (
-        <GameUi gameImage={map.imageUrl} characters={character} />
+        <GameUi gameImage={map.imageUrl} mapCharacters={character} />
       )}
       <ToastContainer />
     </div>

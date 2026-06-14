@@ -10,7 +10,7 @@ import { useToastContext } from "@/hooks/context";
 
 type GameUi = {
   gameImage: string;
-  characters: Character[];
+  mapCharacters: Character[];
 };
 
 type CharacterLocation = {
@@ -18,7 +18,7 @@ type CharacterLocation = {
   yPercent: number;
 };
 
-export default function GameUi({ gameImage, characters }: GameUi) {
+export default function GameUi({ gameImage, mapCharacters }: GameUi) {
   const [characterBoxState, setCharacterBoxState] = useState({
     x: 0,
     y: 0,
@@ -26,7 +26,9 @@ export default function GameUi({ gameImage, characters }: GameUi) {
   });
   const [characterLocation, setCharacterLocation] =
     useState<null | CharacterLocation>(null);
-
+  const [characters, setCharacters] = useState(
+    mapCharacters.map((character) => ({ ...character, isFound: false })),
+  );
   const selectCharacterRef = useRef(null!);
   const headerRef = useRef<HTMLElement>(null!);
   useClickOutside(selectCharacterRef, handleClickOutside);
@@ -46,6 +48,13 @@ export default function GameUi({ gameImage, characters }: GameUi) {
     console.log("result validation:", result);
     if (result.success) {
       addToast(result.message, "success");
+      setCharacters((prev) =>
+        prev.map((character) =>
+          character.id == characterId
+            ? { ...character, isFound: true }
+            : character,
+        ),
+      );
     } else {
       addToast(result.message, "error");
     }
@@ -89,14 +98,18 @@ export default function GameUi({ gameImage, characters }: GameUi) {
         <Logo />
         <div className="flex gap-4">
           {characters.map((character) => (
-            <Image
-              key={character.id}
-              src={character.avatarUrl}
-              width={200}
-              height={200}
-              className="h-[70px] w-[100px] rounded-xl border-2 border-purple-500 object-cover object-top"
-              alt={character.name}
-            />
+            <div key={character.id} className="relative h-[70px] w-[100px]">
+              {character.isFound && (
+                <div className="absolute inset-0 z-1 rounded-xl bg-black/60"></div>
+              )}
+              <Image
+                src={character.avatarUrl}
+                width={100}
+                height={70}
+                className="h-full w-full rounded-xl border-2 border-purple-500 object-cover object-top"
+                alt={character.name}
+              />
+            </div>
           ))}
         </div>
         <CountDownTimer />
@@ -108,7 +121,7 @@ export default function GameUi({ gameImage, characters }: GameUi) {
         alt="robot city"
         width={1910}
         height={2689}
-        className="insert-0 absolute min-h-[2689px] min-w-[1910px]"
+        className="absolute inset-0 min-h-[2689px] min-w-[1910px]"
       />
       {characterBoxState.visible && (
         <section
@@ -120,26 +133,29 @@ export default function GameUi({ gameImage, characters }: GameUi) {
           className="absolute z-2 w-3xs select-none"
         >
           <ul className="w-full overflow-hidden rounded-lg bg-gray-900/90">
-            {characters.map((character) => (
-              <li
-                onClick={() => handleClickInside(character.id)}
-                key={character.id}
-                data-character={character.id}
-                className="flex items-center gap-2 p-3 transition-colors duration-200 hover:bg-purple-300"
-              >
-                <Image
-                  key={character.id}
-                  src={character.avatarUrl}
-                  width={50}
-                  height={50}
-                  className="h-[50px] w-[50px] rounded-xl object-cover object-top"
-                  alt={character.name}
-                />
-                <span className="text-md font-bold text-purple-500">
-                  {character.name}
-                </span>
-              </li>
-            ))}
+            {characters.map(
+              (character) =>
+                character.isFound === false && (
+                  <li
+                    onClick={() => handleClickInside(character.id)}
+                    key={character.id}
+                    data-character={character.id}
+                    className="flex items-center gap-2 p-3 transition-colors duration-200 hover:bg-purple-300"
+                  >
+                    <Image
+                      key={character.id}
+                      src={character.avatarUrl}
+                      width={50}
+                      height={50}
+                      className="h-[50px] w-[50px] rounded-xl object-cover object-top"
+                      alt={character.name}
+                    />
+                    <span className="text-md font-bold text-purple-500">
+                      {character.name}
+                    </span>
+                  </li>
+                ),
+            )}
           </ul>
         </section>
       )}
