@@ -108,7 +108,7 @@ export default function GameUi({ gameImage, characters }: GameUi) {
         alt="robot city"
         width={1920}
         height={2689}
-        className="absolute min-h-[2689px] min-w-[1920px] overflow-auto"
+        className="insert-0 absolute min-h-[2689px] min-w-[1900px]"
       />
       {characterBoxState.visible && (
         <section
@@ -117,7 +117,7 @@ export default function GameUi({ gameImage, characters }: GameUi) {
             left: characterBoxState.x,
             top: characterBoxState.y,
           }}
-          className="absolute z-2 min-w-[250px] select-none"
+          className="absolute z-2 w-3xs select-none"
         >
           <ul className="w-full overflow-hidden rounded-lg bg-gray-900/90">
             {characters.map((character) => (
