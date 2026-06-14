@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import { useClickOutside } from "@/hooks/use-click-outside";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import CountDownTimer from "./count-down-timer";
 import { Character } from "@/generated/prisma/client";
 import Logo from "./logo";
@@ -98,14 +98,14 @@ export default function GameUi({ gameImage, mapCharacters }: GameUi) {
         <Logo />
         <div className="flex gap-4">
           {characters.map((character) => (
-            <div key={character.id} className="relative h-[70px] w-[100px]">
+            <div key={character.id} className="relative h-[75px] w-[90px]">
               {character.isFound && (
                 <div className="absolute inset-0 z-1 rounded-xl bg-black/60"></div>
               )}
               <Image
                 src={character.avatarUrl}
-                width={100}
-                height={70}
+                width={75}
+                height={90}
                 className="h-full w-full rounded-xl border-2 border-purple-500 object-cover object-top"
                 alt={character.name}
               />
@@ -121,7 +121,7 @@ export default function GameUi({ gameImage, mapCharacters }: GameUi) {
         alt="robot city"
         width={1910}
         height={2689}
-        className="absolute inset-0 min-h-[2689px] min-w-[1910px]"
+        className="absolute inset-0 min-h-[2689px] min-w-[1910px] lg:min-h-auto lg:min-w-full"
       />
       {characterBoxState.visible && (
         <section

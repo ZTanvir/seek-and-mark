@@ -31,15 +31,18 @@ export default function CountDownTimer() {
   }, []);
 
   return (
-    <section className="relative w-fit border-2 border-purple-500 rounded-xl overflow-hidden">
+    <section className="relative w-3xs overflow-hidden rounded-xl border-2 border-purple-500 lg:w-xs">
       <Image
         preload={true}
         src={countDownBg}
-        alt="countdown timer background"
+        className="h-full w-full"
+        alt="countdown timer background "
       />
-      <div className="absolute z-2 top-0 right-0 bg-black/60 w-[45%] h-full flex justify-center items-center">
+      <div className="absolute top-0 right-0 z-2 flex h-full basis-[45%] items-center justify-center bg-black/60 p-2">
         <AlarmClock className="text-purple-400" size={40} />
-        <span className="text-purple-400 font-bold text-2xl ml-2">{timer}</span>
+        <span className="ml-2 text-sm font-bold text-purple-400 md:text-xl lg:text-2xl">
+          {timer}
+        </span>
       </div>
     </section>
   );
