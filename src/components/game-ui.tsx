@@ -106,9 +106,9 @@ export default function GameUi({ gameImage, characters }: GameUi) {
         src={gameImage}
         priority={true}
         alt="robot city"
-        width={1920}
+        width={1910}
         height={2689}
-        className="insert-0 absolute min-h-[2689px] min-w-[1900px]"
+        className="insert-0 absolute min-h-[2689px] min-w-[1910px]"
       />
       {characterBoxState.visible && (
         <section
