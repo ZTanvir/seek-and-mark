@@ -4,7 +4,7 @@ import Toast from "./toast";
 export default function ToastContainer() {
   const { toasts, removeToast } = useToastContext();
   return (
-    <div className="absolute top-[15%] right-0 z-2 flex flex-col gap-2">
+    <div className="fixed top-[15%] right-0 z-2 m-4 flex flex-col gap-2">
       {toasts.map((toast) => (
         <Toast
           key={toast.id}

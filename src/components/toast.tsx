@@ -17,8 +17,8 @@ const iconMap = {
     icon: InfoIcon,
   },
   error: {
-    borderColor: "border-red-600",
-    textColor: "text-red-600",
+    borderColor: "border-red-500",
+    textColor: "text-red-500",
     icon: CircleX,
   },
   success: {

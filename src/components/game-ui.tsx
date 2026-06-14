@@ -80,10 +80,6 @@ export default function GameUi({ gameImage, characters }: GameUi) {
     });
   }
 
-  useEffect(() => {
-    addToast("Let play", "warning");
-  }, []);
-
   return (
     <div onClick={handleAreaClick} className="relative min-h-screen w-full">
       <header
