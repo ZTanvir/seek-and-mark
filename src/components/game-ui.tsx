@@ -48,13 +48,16 @@ export default function GameUi({ gameImage, mapCharacters }: GameUi) {
     console.log("result validation:", result);
     if (result.success) {
       addToast(result.message, "success");
-      setCharacters((prev) =>
-        prev.map((character) =>
-          character.id == characterId
-            ? { ...character, isFound: true }
-            : character,
-        ),
+      const updatedCharacters = characters.map((character) =>
+        character.id == characterId
+          ? { ...character, isFound: true }
+          : character,
       );
+      setCharacters(updatedCharacters);
+      const isGameOver = updatedCharacters.every(
+        (character) => character.isFound,
+      );
+      console.log({ isGameOver });
     } else {
       addToast(result.message, "error");
     }
@@ -82,7 +85,7 @@ export default function GameUi({ gameImage, mapCharacters }: GameUi) {
     const yPixel = event.clientY - rect.top;
     const xPercent = ((xPixel / rect.width) * 100).toFixed(2);
     const yPercent = ((yPixel / rect.height) * 100).toFixed(2);
-    // console.log("pixel", xPercent, yPercent);
+    console.log("pixel", xPercent, yPercent);
     setCharacterLocation({
       xPercent: parseFloat(xPercent),
       yPercent: parseFloat(yPercent),

@@ -40,10 +40,10 @@ async function seedMap() {
         {
           name: "Lord robot",
           avatarUrl: `${storageBaseUrl}/robotcity/characters/lord_robot.png`,
-          xMin: 77,
-          yMin: 64,
-          xMax: 81,
-          yMax: 68,
+          xMin: 53,
+          yMin: 46,
+          xMax: 61,
+          yMax: 48,
         },
         {
           name: "Mad doctor",
