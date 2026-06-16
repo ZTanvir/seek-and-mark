@@ -11,14 +11,14 @@ export default async function GamePlayPage({
 }) {
   const { gameName } = await params;
   const map = await getMapByName(gameName);
-  const character = map && shuffle(map.characters).slice(0, 3);
+  const characters = map && shuffle(map.characters).slice(0, 3);
   return (
     <div className="cursor-custom relative h-full w-full">
-      <GameUiModal>
-        {map && character && (
-          <GameUi gameImage={map.imageUrl} mapCharacters={character} />
-        )}
-      </GameUiModal>
+      {map && characters && (
+        <GameUiModal gameName={map.name} gameCharacters={characters}>
+          <GameUi gameImage={map.imageUrl} mapCharacters={characters} />
+        </GameUiModal>
+      )}
       <ToastContainer />
     </div>
   );

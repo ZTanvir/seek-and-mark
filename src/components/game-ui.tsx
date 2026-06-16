@@ -6,6 +6,7 @@ import CountDownTimer from "./count-down-timer";
 import { Character } from "@/generated/prisma/client";
 import { validateCharacter } from "@/actions/game";
 import { useToastContext } from "@/hooks/context";
+import GameCharactersList from "./game-character-list";
 import Logo from "./logo";
 
 type GameUi = {
@@ -138,24 +139,11 @@ export default function GameUi({ gameImage, mapCharacters }: GameUi) {
             {characters.map(
               (character) =>
                 character.isFound === false && (
-                  <li
-                    onClick={() => handleClickInside(character.id)}
+                  <GameCharactersList
                     key={character.id}
-                    data-character={character.id}
-                    className="flex items-center gap-2 p-3 transition-colors duration-200 hover:bg-purple-300"
-                  >
-                    <Image
-                      key={character.id}
-                      src={character.avatarUrl}
-                      width={50}
-                      height={50}
-                      className="h-[50px] w-[50px] rounded-xl object-cover object-top"
-                      alt={character.name}
-                    />
-                    <span className="text-md font-bold text-purple-500">
-                      {character.name}
-                    </span>
-                  </li>
+                    character={character}
+                    onClickCharacter={() => handleClickInside(character.id)}
+                  />
                 ),
             )}
           </ul>
