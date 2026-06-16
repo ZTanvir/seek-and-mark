@@ -2,6 +2,7 @@ import GameUi from "@/components/game-ui";
 import { getMapByName } from "@/lib/dal/db-query";
 import ToastContainer from "@/components/toast-container";
 import { shuffle } from "@/lib/utils";
+import GameUiModal from "@/components/gameui-modal";
 
 export default async function GamePlayPage({
   params,
@@ -13,9 +14,11 @@ export default async function GamePlayPage({
   const character = map && shuffle(map.characters).slice(0, 3);
   return (
     <div className="cursor-custom relative h-full w-full">
-      {map && character && (
-        <GameUi gameImage={map.imageUrl} mapCharacters={character} />
-      )}
+      <GameUiModal>
+        {map && character && (
+          <GameUi gameImage={map.imageUrl} mapCharacters={character} />
+        )}
+      </GameUiModal>
       <ToastContainer />
     </div>
   );

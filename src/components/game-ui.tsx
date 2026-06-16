@@ -1,12 +1,12 @@
 "use client";
+import { useRef, useState } from "react";
 import Image from "next/image";
 import { useClickOutside } from "@/hooks/use-click-outside";
-import { useRef, useState } from "react";
 import CountDownTimer from "./count-down-timer";
 import { Character } from "@/generated/prisma/client";
-import Logo from "./logo";
 import { validateCharacter } from "@/actions/game";
 import { useToastContext } from "@/hooks/context";
+import Logo from "./logo";
 
 type GameUi = {
   gameImage: string;
@@ -120,7 +120,6 @@ export default function GameUi({ gameImage, mapCharacters }: GameUi) {
       <Image
         onClick={handleImageClick}
         src={gameImage}
-        priority={true}
         alt="robot city"
         width={1910}
         height={2689}
