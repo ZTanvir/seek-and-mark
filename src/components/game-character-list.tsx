@@ -2,17 +2,17 @@ import { Character } from "@/generated/prisma/client";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 
-type GameCharactersListProps = {
+type GameCharacterListProps = {
   character: Character;
   onClickCharacter?: (id: number) => void;
   classname?: string;
 };
 
-export default function GameCharactersList({
+export default function GameCharacterList({
   character,
   onClickCharacter,
   classname,
-}: GameCharactersListProps) {
+}: GameCharacterListProps) {
   return (
     <li
       onClick={() => onClickCharacter && onClickCharacter(character.id)}

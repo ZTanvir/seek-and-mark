@@ -21,47 +21,56 @@ export default function GameUiModal({
   return (
     <div>
       <Modal isOpen={isOpen}>
-        <div className="relative">
+        <div className="relative h-full w-full">
           <Image
             src={modalBgImg}
-            alt="object-cover w-full h-auto"
+            className="object-cover"
+            alt="modal background image"
             width={590}
             height={540}
             priority={true}
           />
-          <section className="absolute top-0 left-[40%] z-4 flex h-full flex-col gap-3 bg-black/80 p-6 text-purple-400">
+          <section className="absolute inset-0 z-4 flex h-full flex-col gap-3 bg-black/80 p-6 text-purple-400 md:left-[40%]">
             <h2 className="text-center text-2xl font-bold capitalize md:text-4xl">
               {gameName}
             </h2>
             <p>Beep beep! I am Zahirul. And you are?</p>
 
-            <input
-              type="text"
-              name="username"
-              id="username"
-              required
-              className="rounded-lg border border-purple-500 p-2 text-white"
-            />
-            <p>
-              Goodness! It&apos;s you. I truly need your cooperation. Please
-              help me find these disoriented robots!
-            </p>
-            <div>
-              {gameCharacters.map((character) => (
-                <GameCharactersList
-                  classname="p-0 mb-2 hover:bg-transparent"
-                  key={character.id}
-                  character={character}
-                />
-              ))}
-            </div>
-            <button
-              type="submit"
-              onClick={() => setIsOpen(false)}
-              className="rounded-lg bg-purple-700 p-2 font-bold text-white transition-colors duration-300 hover:cursor-pointer hover:bg-purple-600 focus:bg-purple-700"
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+              }}
             >
-              Start
-            </button>
+              <input
+                type="text"
+                name="username"
+                id="username"
+                required
+                className="mb-2 w-full rounded-lg border border-purple-500 p-2 text-white"
+              />
+              <p className="mb-4">
+                Goodness! It&apos;s you. I truly need your cooperation.
+              </p>
+              <p className="mb-4">
+                Please help me find these disoriented robots!
+              </p>
+              <div>
+                {gameCharacters.map((character) => (
+                  <GameCharactersList
+                    classname="p-0 mb-4 hover:bg-transparent"
+                    key={character.id}
+                    character={character}
+                  />
+                ))}
+              </div>
+              <button
+                type="submit"
+                // onClick={() => setIsOpen(false)}
+                className="mt-2 w-full rounded-lg bg-purple-700 p-2 font-bold text-white transition-colors duration-300 hover:cursor-pointer hover:bg-purple-600 focus:bg-purple-700"
+              >
+                Start
+              </button>
+            </form>
           </section>
         </div>
       </Modal>
