@@ -8,10 +8,13 @@ import { validateCharacter } from "@/actions/game";
 import { useToastContext } from "@/hooks/context";
 import GameCharactersList from "./game-character-list";
 import Logo from "./logo";
+import type { GameState } from "@/types/components";
 
 type GameUi = {
   gameImage: string;
   mapCharacters: Character[];
+  gameState: GameState;
+  handleGameState: (gameStart: boolean, userName: string, time: string) => void;
 };
 
 type CharacterLocation = {
@@ -19,7 +22,12 @@ type CharacterLocation = {
   yPercent: number;
 };
 
-export default function GameUi({ gameImage, mapCharacters }: GameUi) {
+export default function GameUi({
+  gameImage,
+  mapCharacters,
+  gameState,
+  handleGameState,
+}: GameUi) {
   const [characterBoxState, setCharacterBoxState] = useState({
     x: 0,
     y: 0,
@@ -58,6 +66,9 @@ export default function GameUi({ gameImage, mapCharacters }: GameUi) {
       const isGameOver = updatedCharacters.every(
         (character) => character.isFound,
       );
+      if (isGameOver) {
+        handleGameState(false, gameState.userName, gameState.time);
+      }
       console.log({ isGameOver });
     } else {
       addToast(result.message, "error");
@@ -116,7 +127,7 @@ export default function GameUi({ gameImage, mapCharacters }: GameUi) {
             </div>
           ))}
         </div>
-        <CountDownTimer />
+        <CountDownTimer startCountDown={gameState.gameStart} />
       </header>
       <Image
         onClick={handleImageClick}

@@ -3,10 +3,17 @@ import Image from "next/image";
 import countDownBg from "../../public/images/countDownTimer.webp";
 import { useEffect, useState } from "react";
 import { AlarmClock } from "lucide-react";
-export default function CountDownTimer() {
-  const [timer, setTimer] = useState("00:00:00");
 
+type CountDownTimerProps = {
+  startCountDown: boolean;
+};
+
+export default function CountDownTimer({
+  startCountDown,
+}: CountDownTimerProps) {
+  const [timer, setTimer] = useState("00:00:00");
   useEffect(() => {
+    if (!startCountDown) return;
     const formatTimer = (time: number, reset: number) => {
       if (time >= reset) {
         return `00`;
@@ -27,8 +34,9 @@ export default function CountDownTimer() {
         return `${formatHours}:${formatMinutes}:${formatSeconds}`;
       });
     }, 1000);
+
     return () => clearInterval(timerId);
-  }, []);
+  }, [startCountDown]);
 
   return (
     <section className="relative w-3xs overflow-hidden rounded-xl border-2 border-purple-500 lg:w-xs">

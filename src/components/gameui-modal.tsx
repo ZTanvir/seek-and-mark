@@ -8,16 +8,17 @@ import { Character } from "@/generated/prisma/client";
 import GameCharactersList from "./game-character-list";
 
 type GameUiModalProps = {
-  children: React.ReactNode;
   gameName: string;
   gameCharacters: Character[];
+  handleGameState: (gameStart: boolean, userName: string, time: string) => void;
 };
 export default function GameUiModal({
-  children,
   gameName,
   gameCharacters,
+  handleGameState,
 }: GameUiModalProps) {
   const [isOpen, setIsOpen] = useState(true);
+  const [username, setUsername] = useState("");
   return (
     <div>
       <Modal isOpen={isOpen}>
@@ -39,12 +40,18 @@ export default function GameUiModal({
             <form
               onSubmit={(e) => {
                 e.preventDefault();
+                const sanitizeUsername = username.trim();
+                setUsername(sanitizeUsername);
+                if (sanitizeUsername) setIsOpen(false);
+                handleGameState(true, username, "");
               }}
             >
               <input
                 type="text"
                 name="username"
                 id="username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
                 required
                 className="mb-2 w-full rounded-lg border border-purple-500 p-2 text-white"
               />
@@ -65,7 +72,6 @@ export default function GameUiModal({
               </div>
               <button
                 type="submit"
-                // onClick={() => setIsOpen(false)}
                 className="mt-2 w-full rounded-lg bg-purple-700 p-2 font-bold text-white transition-colors duration-300 hover:cursor-pointer hover:bg-purple-600 focus:bg-purple-700"
               >
                 Start
@@ -74,7 +80,6 @@ export default function GameUiModal({
           </section>
         </div>
       </Modal>
-      {children}
     </div>
   );
 }
