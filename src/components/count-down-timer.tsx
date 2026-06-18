@@ -1,15 +1,17 @@
 "use client";
 import Image from "next/image";
 import countDownBg from "../../public/images/countDownTimer.webp";
-import { useEffect, useState } from "react";
+import { Ref, useEffect, useState } from "react";
 import { AlarmClock } from "lucide-react";
 
 type CountDownTimerProps = {
   startCountDown: boolean;
+  ref: Ref<HTMLSpanElement>;
 };
 
 export default function CountDownTimer({
   startCountDown,
+  ref,
 }: CountDownTimerProps) {
   const [timer, setTimer] = useState("00:00:00");
   useEffect(() => {
@@ -48,7 +50,10 @@ export default function CountDownTimer({
       />
       <div className="absolute top-0 right-0 z-2 flex h-full basis-[45%] items-center justify-center bg-black/60 p-2">
         <AlarmClock className="text-purple-400" size={40} />
-        <span className="ml-2 text-sm font-bold text-purple-400 md:text-xl lg:text-2xl">
+        <span
+          ref={ref}
+          className="ml-2 text-sm font-bold text-purple-400 md:text-xl lg:text-2xl"
+        >
           {timer}
         </span>
       </div>

@@ -40,9 +40,9 @@ export default function GameUi({
   );
   const selectCharacterRef = useRef(null!);
   const headerRef = useRef<HTMLElement>(null!);
+  const countdownTimerRef = useRef<HTMLSpanElement>(null!);
   useClickOutside(selectCharacterRef, handleClickOutside);
   const { addToast } = useToastContext();
-
   function handleClickOutside() {
     setCharacterBoxState((prev) => ({ ...prev, visible: false }));
   }
@@ -63,13 +63,17 @@ export default function GameUi({
           : character,
       );
       setCharacters(updatedCharacters);
+
       const isGameOver = updatedCharacters.every(
         (character) => character.isFound,
       );
       if (isGameOver) {
-        handleGameState(false, gameState.userName, gameState.time);
+        handleGameState(
+          false,
+          gameState.userName,
+          countdownTimerRef.current.textContent,
+        );
       }
-      console.log({ isGameOver });
     } else {
       addToast(result.message, "error");
     }
@@ -127,7 +131,10 @@ export default function GameUi({
             </div>
           ))}
         </div>
-        <CountDownTimer startCountDown={gameState.gameStart} />
+        <CountDownTimer
+          ref={countdownTimerRef}
+          startCountDown={gameState.gameStart}
+        />
       </header>
       <Image
         onClick={handleImageClick}

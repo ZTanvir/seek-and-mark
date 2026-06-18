@@ -1,7 +1,7 @@
 import { getMapByName } from "@/lib/dal/db-query";
 import ToastContainer from "@/components/toast-container";
 import { shuffle } from "@/lib/utils";
-import GameContainer from "@/components/game-cotainer";
+import GameContainer from "@/components/game-container";
 
 export default async function GamePlayPage({
   params,
