@@ -15,6 +15,7 @@ type GameUi = {
   mapCharacters: Character[];
   gameState: GameState;
   handleGameState: (gameStart: boolean, userName: string, time: string) => void;
+  handleLeaderBoardModal: (isOpenModal: boolean) => void;
 };
 
 type CharacterLocation = {
@@ -27,6 +28,7 @@ export default function GameUi({
   mapCharacters,
   gameState,
   handleGameState,
+  handleLeaderBoardModal,
 }: GameUi) {
   const [characterBoxState, setCharacterBoxState] = useState({
     x: 0,
@@ -68,6 +70,7 @@ export default function GameUi({
         (character) => character.isFound,
       );
       if (isGameOver) {
+        handleLeaderBoardModal(true);
         handleGameState(
           false,
           gameState.userName,

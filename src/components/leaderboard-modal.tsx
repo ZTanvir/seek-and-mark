@@ -1,18 +1,27 @@
 "use client";
-import { useState } from "react";
 import Modal from "./modal";
 import Link from "next/link";
 
-export default function LeaderboardModal() {
-  const [isOpen, setIsOpen] = useState(false);
+type LeaderboardModal = {
+  isOpenLeaderboardModal: boolean;
+  handleLeaderBoardModal: (isOpenModal: boolean) => void;
+  handleGameState: (gameStart: boolean, userName: string, time: string) => void;
+};
+
+export default function LeaderboardModal({
+  isOpenLeaderboardModal,
+  handleLeaderBoardModal,
+  handleGameState,
+}: LeaderboardModal) {
   function handleRetryBtn() {
-    setIsOpen(false);
+    handleLeaderBoardModal(false);
     // reset game state
+    handleGameState(true, "", "");
   }
 
   return (
     <>
-      <Modal isOpen={isOpen}>
+      <Modal isOpen={isOpenLeaderboardModal}>
         <section>
           <header>
             <h2>Leaderboard</h2>

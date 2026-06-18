@@ -4,6 +4,7 @@ import GameUi from "./game-ui";
 import { useState } from "react";
 import type { GameState } from "@/types/components";
 import GameStartModal from "./game-start-modal";
+import LeaderboardModal from "./leaderboard-modal";
 
 type GameContainerProps = {
   map: Map;
@@ -16,6 +17,7 @@ export default function GameContainer({ map, characters }: GameContainerProps) {
     userName: "",
     time: "",
   });
+  const [isOpenLeaderboardModal, setIsOpenLeaderboardModal] = useState(false);
 
   const handleGameState = (
     gameStart: boolean,
@@ -25,6 +27,9 @@ export default function GameContainer({ map, characters }: GameContainerProps) {
     console.log("Handle game state:", gameStart, userName, time);
 
     setGameState({ gameStart, userName, time });
+  };
+  const handleLeaderBoardModal = (isOpenModal: boolean) => {
+    setIsOpenLeaderboardModal(isOpenModal);
   };
   return (
     <>
@@ -37,6 +42,12 @@ export default function GameContainer({ map, characters }: GameContainerProps) {
         gameImage={map.imageUrl}
         mapCharacters={characters}
         gameState={gameState}
+        handleGameState={handleGameState}
+        handleLeaderBoardModal={handleLeaderBoardModal}
+      />
+      <LeaderboardModal
+        isOpenLeaderboardModal={isOpenLeaderboardModal}
+        handleLeaderBoardModal={handleLeaderBoardModal}
         handleGameState={handleGameState}
       />
     </>
