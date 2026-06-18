@@ -21,22 +21,35 @@ export default function LeaderboardModal({
 
   return (
     <>
-      <Modal isOpen={isOpenLeaderboardModal}>
-        <section>
+      <Modal isOpen={true}>
+        <section className="relative h-full w-full p-6">
+          <div className="absolute inset-0 -z-1 bg-black/90"></div>
           <header>
-            <h2>Leaderboard</h2>
-            <p>top scores</p>
+            <h2 className="text-center text-3xl font-bold text-purple-500 capitalize">
+              LEADERBOARD
+            </h2>
+            <p className="text-center text-sm text-white">TOP SCORES</p>
           </header>
 
-          <div>
+          <div className="my-5">
             <p></p>
-            <p>That took a while...</p>
-            <p>But you did it!</p>
+            <p className="text-center text-purple-400">That took a while...</p>
+            <p className="text-center text-purple-400">But you did it!</p>
           </div>
 
-          <footer>
-            <button onClick={handleRetryBtn}>Retry</button>
-            <Link href="/leaderboard">Leaderboard</Link>
+          <footer className="flex flex-col gap-4">
+            <button
+              className="cursor-pointer rounded-xl bg-purple-800 px-5 py-2 font-bold text-white transition-colors duration-300 hover:bg-purple-700 focus:bg-purple-700"
+              onClick={handleRetryBtn}
+            >
+              Retry
+            </button>
+            <Link
+              className="rounded-xl bg-blue-600 px-5 py-2 text-center font-bold text-white transition-colors duration-300 hover:bg-blue-500 focus:bg-blue-500"
+              href="/leaderboard"
+            >
+              Leaderboard
+            </Link>
           </footer>
         </section>
       </Modal>
