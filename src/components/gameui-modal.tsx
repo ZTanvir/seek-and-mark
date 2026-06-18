@@ -19,6 +19,7 @@ export default function GameUiModal({
 }: GameUiModalProps) {
   const [isOpen, setIsOpen] = useState(true);
   const [username, setUsername] = useState("");
+  const [error, setError] = useState("");
   return (
     <div>
       <Modal isOpen={isOpen}>
@@ -42,7 +43,12 @@ export default function GameUiModal({
                 e.preventDefault();
                 const sanitizeUsername = username.trim();
                 setUsername(sanitizeUsername);
-                if (sanitizeUsername) setIsOpen(false);
+                if (!sanitizeUsername.length)
+                  setError("Please let me know your name.");
+                if (sanitizeUsername) {
+                  setIsOpen(false);
+                  setError("");
+                }
                 handleGameState(true, username, "");
               }}
             >
@@ -52,9 +58,10 @@ export default function GameUiModal({
                 id="username"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
-                required
                 className="mb-2 w-full rounded-lg border border-purple-500 p-2 text-white"
               />
+
+              {error && <p className="mb-4 text-red-400">{error}</p>}
               <p className="mb-4">
                 Goodness! It&apos;s you. I truly need your cooperation.
               </p>
