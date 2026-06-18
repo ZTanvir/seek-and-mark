@@ -27,6 +27,7 @@ export default function GameCharacterList({
         src={character.avatarUrl}
         width={50}
         height={50}
+        priority={true}
         className="h-[50px] w-[50px] rounded-xl object-cover object-top"
         alt={character.name}
       />
