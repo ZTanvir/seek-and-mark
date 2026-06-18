@@ -7,16 +7,16 @@ import modalBgImg from "../../public/images/modal-bg.jpg";
 import { Character } from "@/generated/prisma/client";
 import GameCharactersList from "./game-character-list";
 
-type GameUiModalProps = {
+type GameStartModalProps = {
   gameName: string;
   gameCharacters: Character[];
   handleGameState: (gameStart: boolean, userName: string, time: string) => void;
 };
-export default function GameUiModal({
+export default function GameStartModal({
   gameName,
   gameCharacters,
   handleGameState,
-}: GameUiModalProps) {
+}: GameStartModalProps) {
   const [isOpen, setIsOpen] = useState(true);
   const [username, setUsername] = useState("");
   const [error, setError] = useState("");

@@ -1,9 +1,9 @@
 "use client";
 import { Map, Character } from "@/generated/prisma/client";
-import GameUiModal from "./gameui-modal";
 import GameUi from "./game-ui";
 import { useState } from "react";
 import type { GameState } from "@/types/components";
+import GameStartModal from "./game-start-modal";
 
 type GameContainerProps = {
   map: Map;
@@ -28,7 +28,7 @@ export default function GameContainer({ map, characters }: GameContainerProps) {
   };
   return (
     <>
-      <GameUiModal
+      <GameStartModal
         gameName={map.name}
         gameCharacters={characters}
         handleGameState={handleGameState}
