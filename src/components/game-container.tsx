@@ -39,6 +39,7 @@ export default function GameContainer({ map, characters }: GameContainerProps) {
         handleGameState={handleGameState}
       />
       <GameUi
+        key={gameState.gameStart ? 1 : 0}
         gameImage={map.imageUrl}
         mapCharacters={characters}
         gameState={gameState}
@@ -48,6 +49,7 @@ export default function GameContainer({ map, characters }: GameContainerProps) {
       <LeaderboardModal
         isOpenLeaderboardModal={isOpenLeaderboardModal}
         handleLeaderBoardModal={handleLeaderBoardModal}
+        gameState={gameState}
         handleGameState={handleGameState}
       />
     </>

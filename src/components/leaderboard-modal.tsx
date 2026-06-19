@@ -1,27 +1,30 @@
 "use client";
 import Modal from "./modal";
 import Link from "next/link";
+import type { GameState } from "@/types/components";
 
 type LeaderboardModal = {
   isOpenLeaderboardModal: boolean;
   handleLeaderBoardModal: (isOpenModal: boolean) => void;
   handleGameState: (gameStart: boolean, userName: string, time: string) => void;
+  gameState: GameState;
 };
 
 export default function LeaderboardModal({
   isOpenLeaderboardModal,
   handleLeaderBoardModal,
+  gameState,
   handleGameState,
 }: LeaderboardModal) {
   function handleRetryBtn() {
     handleLeaderBoardModal(false);
     // reset game state
-    handleGameState(true, "", "");
+    handleGameState(true, gameState.userName, "");
   }
 
   return (
     <>
-      <Modal isOpen={true}>
+      <Modal isOpen={isOpenLeaderboardModal}>
         <section className="relative h-full w-full p-6">
           <div className="absolute inset-0 -z-1 bg-black/90"></div>
           <header>
