@@ -31,10 +31,21 @@ export default function LeaderboardModal({
             <p className="text-center text-sm text-white">TOP SCORES</p>
           </header>
 
-          <div className="my-5">
+          <div className="my-5 w-xs md:w-md lg:w-lg">
+            <div className="w-full">
+              <p className="flex text-center text-xl text-purple-500">
+                <span className="flex-1">USERNAME</span>
+                <span className="flex-1">TIME</span>
+              </p>
+              <p className="flex text-center text-lg text-blue-400">
+                <span className="flex-1">asad</span>
+                <span className="flex-1">04:16:20</span>
+              </p>
+            </div>
+
             <p></p>
-            <p className="text-center text-purple-400">That took a while...</p>
-            <p className="text-center text-purple-400">But you did it!</p>
+            <p className="text-center text-purple-300">That took a while...</p>
+            <p className="text-center text-purple-300">But you did it!</p>
           </div>
 
           <footer className="flex flex-col gap-4">
