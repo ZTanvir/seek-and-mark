@@ -1,5 +1,15 @@
 "use server";
 import { getCharacterById } from "@/lib/dal/db-query";
+import type { Leaderboard } from "@/generated/prisma/client";
+
+type LeaderboardData = {
+  mapId: Leaderboard["mapId"];
+  userId?: Leaderboard["userId"];
+  username: Leaderboard["username"];
+  startTime: Leaderboard["startTime"];
+  endTime: Leaderboard["endTime"];
+  durationMs: Leaderboard["durationMs"];
+};
 
 export async function validateCharacter(
   characterId: number,
@@ -29,3 +39,10 @@ export async function validateCharacter(
   }
 }
 
+export async function addLeaderboard({
+  mapId,
+  userId,
+  username,
+  endTime,
+  durationMs,
+}: LeaderboardData) {}

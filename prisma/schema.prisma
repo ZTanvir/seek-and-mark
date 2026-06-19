@@ -44,8 +44,7 @@ model Leaderboard {
   userId     Int?
   mapId      Int
   username   String
-  startTime  DateTime
-  endTime    DateTime
+  endTime    DateTime @db.Time()
   durationMs Int
   user       User?    @relation(fields: [userId], references: [id])
 }

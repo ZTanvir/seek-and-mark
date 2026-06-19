@@ -23,3 +23,19 @@ export function shuffle<T>(items: T[]) {
   }
   return itemsList;
 }
+
+export function stringToDateTime(timeString: string) {
+  const [hours, minutes, seconds] = timeString
+    .split(":")
+    .map((item) => Number(item));
+  const dateTime = new Date(Date.UTC(1970, 0, 1, hours, minutes, seconds));
+  return dateTime;
+}
+
+export function dateTimeToString(dateTime: Date) {
+  const hours = String(dateTime.getUTCHours()).padStart(2, "0");
+  const minutes = String(dateTime.getUTCMinutes()).padStart(2, "0");
+  const seconds = String(dateTime.getUTCSeconds()).padStart(2, "0");
+
+  return `${hours}:${minutes}:${seconds}`;
+}
