@@ -38,9 +38,10 @@ export default function GameContainer({ map, characters }: GameContainerProps) {
         gameCharacters={characters}
         handleGameState={handleGameState}
       />
+
       <GameUi
         key={gameState.gameStart ? 1 : 0}
-        gameImage={map.imageUrl}
+        map={map}
         mapCharacters={characters}
         gameState={gameState}
         handleGameState={handleGameState}

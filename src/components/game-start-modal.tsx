@@ -26,7 +26,7 @@ export default function GameStartModal({
         <div className="relative h-full w-full">
           <Image
             src={modalBgImg}
-            className="object-cover"
+            className="h-auto w-auto object-cover"
             alt="modal background image"
             width={590}
             height={540}

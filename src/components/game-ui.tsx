@@ -4,14 +4,16 @@ import Image from "next/image";
 import { useClickOutside } from "@/hooks/use-click-outside";
 import CountDownTimer from "./count-down-timer";
 import { Character } from "@/generated/prisma/client";
-import { validateCharacter } from "@/actions/game";
+import { addLeaderboard, validateCharacter } from "@/actions/game";
 import { useToastContext } from "@/hooks/context";
 import GameCharactersList from "./game-character-list";
 import Logo from "./logo";
 import type { GameState } from "@/types/components";
+import { stringToDateTime } from "@/lib/utils";
+import { Map } from "@/generated/prisma/client";
 
 type GameUi = {
-  gameImage: string;
+  map: Map;
   mapCharacters: Character[];
   gameState: GameState;
   handleGameState: (gameStart: boolean, userName: string, time: string) => void;
@@ -24,7 +26,7 @@ type CharacterLocation = {
 };
 
 export default function GameUi({
-  gameImage,
+  map,
   mapCharacters,
   gameState,
   handleGameState,
@@ -71,11 +73,17 @@ export default function GameUi({
       );
       if (isGameOver) {
         handleLeaderBoardModal(true);
-        handleGameState(
-          false,
-          gameState.userName,
-          countdownTimerRef.current.textContent,
-        );
+        const countDownTime = countdownTimerRef.current.textContent;
+        const timeToDate = stringToDateTime(countDownTime);
+        // add score to db leaderboard table
+        await addLeaderboard({
+          mapId: map.id,
+          userId: null,
+          username: gameState.userName,
+          endTime: timeToDate,
+          durationMs: timeToDate.getTime(),
+        });
+        handleGameState(false, gameState.userName, countDownTime);
       }
     } else {
       addToast(result.message, "error");
@@ -141,7 +149,7 @@ export default function GameUi({
       </header>
       <Image
         onClick={handleImageClick}
-        src={gameImage}
+        src={map.imageUrl}
         alt="robot city"
         width={1910}
         height={2689}

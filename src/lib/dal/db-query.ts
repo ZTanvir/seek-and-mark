@@ -1,5 +1,6 @@
 import "server-only";
 import prisma from "../prisma";
+import type { Leaderboard } from "@/generated/prisma/client";
 
 export async function getMaps() {
   try {
@@ -36,5 +37,15 @@ export async function getCharacterById(characterId: number) {
     return character;
   } catch (error) {
     console.error("error on getting character:", error);
+  }
+}
+
+export async function insertLeaderboard(leaderboard: Omit<Leaderboard, "id">) {
+  try {
+    await prisma.leaderboard.create({
+      data: leaderboard,
+    });
+  } catch (error) {
+    console.error("Error on add data to leaderboard table,", error);
   }
 }
