@@ -29,7 +29,7 @@ export default function GameCharacterList({
         height={50}
         priority={true}
         className="h-[50px] w-[50px] rounded-xl object-cover object-top"
-        alt={character.name}
+        alt="game character"
       />
       <span className="text-md font-bold text-purple-500">
         {character.name}

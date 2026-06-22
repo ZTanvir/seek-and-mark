@@ -5,6 +5,7 @@ import { useState } from "react";
 import type { GameState } from "@/types/components";
 import GameStartModal from "./game-start-modal";
 import LeaderboardModal from "./leaderboard-modal";
+import { shuffle } from "@/lib/utils";
 
 type GameContainerProps = {
   map: Map;
@@ -18,6 +19,8 @@ export default function GameContainer({ map, characters }: GameContainerProps) {
     time: "",
   });
   const [isOpenLeaderboardModal, setIsOpenLeaderboardModal] = useState(false);
+
+  const selectThreeCharacters = shuffle(characters).slice(0, 3);
 
   const handleGameState = (
     gameStart: boolean,
@@ -35,14 +38,14 @@ export default function GameContainer({ map, characters }: GameContainerProps) {
     <>
       <GameStartModal
         gameName={map.name}
-        gameCharacters={characters}
+        gameCharacters={selectThreeCharacters}
         handleGameState={handleGameState}
       />
 
       <GameUi
         key={gameState.gameStart ? 1 : 0}
         map={map}
-        mapCharacters={characters}
+        mapCharacters={selectThreeCharacters}
         gameState={gameState}
         handleGameState={handleGameState}
         handleLeaderBoardModal={handleLeaderBoardModal}

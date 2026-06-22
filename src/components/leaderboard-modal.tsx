@@ -71,7 +71,10 @@ export default function LeaderboardModal({
                 ))}
             </div>
 
-            <p></p>
+            <p className="my-4 flex text-center text-lg text-orange-500">
+              <span className="flex-1">{gameState.userName}</span>
+              <span className="flex-1">{gameState.time}</span>
+            </p>
             <p className="text-center text-purple-300">That took a while...</p>
             <p className="text-center text-purple-300">But you did it!</p>
           </div>

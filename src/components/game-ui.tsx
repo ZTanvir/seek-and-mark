@@ -137,7 +137,7 @@ export default function GameUi({
                 width={75}
                 height={90}
                 className="h-full w-full rounded-xl border-2 border-purple-500 object-cover object-top"
-                alt={character.name}
+                alt="game avatar"
               />
             </div>
           ))}
