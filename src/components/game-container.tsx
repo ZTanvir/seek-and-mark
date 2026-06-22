@@ -20,7 +20,7 @@ export default function GameContainer({ map, characters }: GameContainerProps) {
   });
   const [isOpenLeaderboardModal, setIsOpenLeaderboardModal] = useState(false);
 
-  const selectThreeCharacters = shuffle(characters).slice(0, 3);
+  const roundCharacters = shuffle(characters).slice(0, 3);
 
   const handleGameState = (
     gameStart: boolean,
@@ -38,14 +38,14 @@ export default function GameContainer({ map, characters }: GameContainerProps) {
     <>
       <GameStartModal
         gameName={map.name}
-        gameCharacters={selectThreeCharacters}
+        gameCharacters={roundCharacters}
         handleGameState={handleGameState}
       />
 
       <GameUi
         key={gameState.gameStart ? 1 : 0}
         map={map}
-        mapCharacters={selectThreeCharacters}
+        mapCharacters={roundCharacters}
         gameState={gameState}
         handleGameState={handleGameState}
         handleLeaderBoardModal={handleLeaderBoardModal}

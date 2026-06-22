@@ -36,7 +36,7 @@ export default function LeaderboardModal({
       setLoading(false);
     };
     fetchLeaderBoard();
-  }, []);
+  }, [isOpenLeaderboardModal]);
 
   return (
     <>

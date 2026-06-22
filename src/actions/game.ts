@@ -35,7 +35,7 @@ export async function addLeaderboard(leaderboard: Omit<Leaderboard, "id">) {
   await insertLeaderboard(leaderboard);
 }
 
-export async function getTopScorerFromLeaderboard(top: number) {
-  const topScorer = await getTopLeaderboardData(top);
+export async function getTopScorerFromLeaderboard(top: number, mapId: number) {
+  const topScorer = await getTopLeaderboardData(top, mapId);
   return topScorer;
 }

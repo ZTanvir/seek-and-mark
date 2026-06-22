@@ -50,9 +50,12 @@ export async function insertLeaderboard(leaderboard: Omit<Leaderboard, "id">) {
   }
 }
 
-export async function getTopLeaderboardData(top: number) {
+export async function getTopLeaderboardData(top: number, mapId: number) {
   try {
     const leaderboard = await prisma.leaderboard.findMany({
+      where: {
+        mapId,
+      },
       orderBy: { durationMs: "asc" },
       take: top,
     });
