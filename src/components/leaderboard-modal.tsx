@@ -2,6 +2,10 @@
 import Modal from "./modal";
 import Link from "next/link";
 import type { GameState } from "@/types/components";
+import { useEffect, useState } from "react";
+import { getTopScorerFromLeaderboard } from "@/actions/game";
+import { Leaderboard } from "@/generated/prisma/client";
+import { dateTimeToString } from "@/lib/utils";
 
 type LeaderboardModal = {
   isOpenLeaderboardModal: boolean;
@@ -16,11 +20,23 @@ export default function LeaderboardModal({
   gameState,
   handleGameState,
 }: LeaderboardModal) {
+  const [leaderBoard, setLeaderBoard] = useState<Leaderboard[] | null>(null);
+  const [loading, setLoading] = useState(true);
+
   function handleRetryBtn() {
     handleLeaderBoardModal(false);
     // reset game state
     handleGameState(true, gameState.userName, "");
   }
+
+  useEffect(() => {
+    const fetchLeaderBoard = async () => {
+      const leaders = await getTopScorerFromLeaderboard(5);
+      if (leaders) setLeaderBoard(leaders);
+      setLoading(false);
+    };
+    fetchLeaderBoard();
+  }, []);
 
   return (
     <>
@@ -40,10 +56,19 @@ export default function LeaderboardModal({
                 <span className="flex-1">USERNAME</span>
                 <span className="flex-1">TIME</span>
               </p>
-              <p className="flex text-center text-lg text-blue-400">
-                <span className="flex-1">asad</span>
-                <span className="flex-1">04:16:20</span>
-              </p>
+              {loading && <p>Loading...</p>}
+              {leaderBoard &&
+                leaderBoard.map((leader) => (
+                  <p
+                    key={leader.id}
+                    className="flex text-center text-lg text-blue-400"
+                  >
+                    <span className="flex-1">{leader.username}</span>
+                    <span className="flex-1">
+                      {dateTimeToString(leader.endTime)}
+                    </span>
+                  </p>
+                ))}
             </div>
 
             <p></p>

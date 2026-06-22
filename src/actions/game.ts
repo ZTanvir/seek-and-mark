@@ -1,5 +1,5 @@
 "use server";
-import { getCharacterById } from "@/lib/dal/db-query";
+import { getCharacterById, getTopLeaderboardData } from "@/lib/dal/db-query";
 import { Leaderboard } from "@/generated/prisma/client";
 import { insertLeaderboard } from "@/lib/dal/db-query";
 
@@ -33,4 +33,9 @@ export async function validateCharacter(
 
 export async function addLeaderboard(leaderboard: Omit<Leaderboard, "id">) {
   await insertLeaderboard(leaderboard);
+}
+
+export async function getTopScorerFromLeaderboard(top: number) {
+  const topScorer = await getTopLeaderboardData(top);
+  return topScorer;
 }

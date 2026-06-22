@@ -49,3 +49,15 @@ export async function insertLeaderboard(leaderboard: Omit<Leaderboard, "id">) {
     console.error("Error on add data to leaderboard table,", error);
   }
 }
+
+export async function getTopLeaderboardData(top: number) {
+  try {
+    const leaderboard = await prisma.leaderboard.findMany({
+      orderBy: { durationMs: "asc" },
+      take: top,
+    });
+    return leaderboard;
+  } catch (error) {
+    console.error(`Error on getting leaderboard table data.`, error);
+  }
+}
