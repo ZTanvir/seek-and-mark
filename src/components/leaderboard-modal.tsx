@@ -12,6 +12,7 @@ type LeaderboardModal = {
   handleLeaderBoardModal: (isOpenModal: boolean) => void;
   handleGameState: (gameStart: boolean, userName: string, time: string) => void;
   gameState: GameState;
+  mapId: number;
 };
 
 export default function LeaderboardModal({
@@ -19,6 +20,7 @@ export default function LeaderboardModal({
   handleLeaderBoardModal,
   gameState,
   handleGameState,
+  mapId,
 }: LeaderboardModal) {
   const [leaderBoard, setLeaderBoard] = useState<Leaderboard[] | null>(null);
   const [loading, setLoading] = useState(true);
@@ -31,12 +33,12 @@ export default function LeaderboardModal({
 
   useEffect(() => {
     const fetchLeaderBoard = async () => {
-      const leaders = await getTopScorerFromLeaderboard(5);
+      const leaders = await getTopScorerFromLeaderboard(5, mapId);
       if (leaders) setLeaderBoard(leaders);
       setLoading(false);
     };
     fetchLeaderBoard();
-  }, [isOpenLeaderboardModal]);
+  }, [isOpenLeaderboardModal, mapId]);
 
   return (
     <>
