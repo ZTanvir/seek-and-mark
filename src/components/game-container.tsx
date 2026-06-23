@@ -51,7 +51,7 @@ export default function GameContainer({ map, characters }: GameContainerProps) {
         handleLeaderBoardModal={handleLeaderBoardModal}
       />
       <LeaderboardModal
-        map={map.id}
+        mapId={map.id}
         isOpenLeaderboardModal={isOpenLeaderboardModal}
         handleLeaderBoardModal={handleLeaderBoardModal}
         gameState={gameState}
