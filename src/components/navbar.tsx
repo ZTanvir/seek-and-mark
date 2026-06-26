@@ -9,25 +9,25 @@ export default function Navbar() {
   const [toggleNavbar, setToggleNavbar] = useState(false);
   return (
     <nav className="sticky top-0 w-full bg-purple-900 md:bg-transparent">
-      <div className="flex gap-6 flex-col md:flex-row">
-        <div className="flex justify-between md:mr-auto pt-2">
+      <div className="flex flex-col gap-6 md:flex-row">
+        <div className="flex justify-between pt-2 md:mr-auto">
           <Logo />
           <HamburgerMenuIcon
             onClick={() => setToggleNavbar((toggle) => !toggle)}
             color="white"
             width={32}
             height={32}
-            className="cursor-pointer transition-color duration-200 opacity-70 hover:opacity-100 md:hidden"
+            className="transition-color cursor-pointer opacity-70 duration-200 hover:opacity-100 md:hidden"
           />
         </div>
         <div
           className={cn(
-            "hidden md:flex flex-col md:flex-row md:space-x-4 space-y-2 md:space-y-0 md:gap-6 md:items-center font-semibold ",
+            "hidden flex-col space-y-2 font-semibold md:flex md:flex-row md:items-center md:gap-6 md:space-y-0 md:space-x-4",
             toggleNavbar && "flex",
           )}
         >
           <NavLink url="/">Home</NavLink>
-          <NavLink url="/games">Games</NavLink>
+          <NavLink url="/maps">Maps</NavLink>
           <NavLink url="/#about">About</NavLink>
           <NavLink url="/login">Login</NavLink>
           <NavLink url="/signup">Sign up</NavLink>

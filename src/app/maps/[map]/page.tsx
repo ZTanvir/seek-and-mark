@@ -5,13 +5,15 @@ import GameContainer from "@/components/game-container";
 export default async function GamePlayPage({
   params,
 }: {
-  params: Promise<{ gameName: string }>;
+  params: Promise<{ map: string }>;
 }) {
-  const { gameName } = await params;
-  const map = await getMapByName(gameName);
+  const { map } = await params;
+  const mapData = await getMapByName(map);
   return (
     <div className="cursor-custom relative h-full w-full">
-      {map && <GameContainer characters={map.characters} map={map} />}
+      {mapData && (
+        <GameContainer characters={mapData.characters} map={mapData} />
+      )}
       <ToastContainer />
     </div>
   );

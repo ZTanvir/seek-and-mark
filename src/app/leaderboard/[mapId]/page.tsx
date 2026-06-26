@@ -11,13 +11,13 @@ export default async function LeaderboardMapPage({
   console.log({ mapId });
   return (
     <div>
-      <h1 className="flex items-center gap-2 text-xl md:text-3xl">
+      <h1 className="flex items-center justify-center gap-2 text-xl md:text-3xl">
         <span>
-          <Trophy />
+          <Trophy color="gold" />
         </span>
         Top achievers
         <span>
-          <Trophy />
+          <Trophy color="gold" />
         </span>
       </h1>
       <table className="text-md w-full table-auto text-left text-gray-500">
