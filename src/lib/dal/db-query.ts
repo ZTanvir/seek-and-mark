@@ -76,3 +76,12 @@ export async function getTopLeaderboardData(
     console.error(`Error on getting leaderboard table data.`, error);
   }
 }
+
+export async function leaderboardCount() {
+  try {
+    const leaderboardCount = await prisma.leaderboard.count();
+    return leaderboardCount;
+  } catch (error) {
+    console.error("Error on getting leaderboard count", error);
+  }
+}

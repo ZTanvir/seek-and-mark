@@ -15,10 +15,15 @@ export default function Pagination({
     pagination[index] = index + 1;
   }
   return (
-    <ul>
+    <ul className="my-2 flex flex-wrap items-center justify-center gap-2">
       {pagination.map((page, index) => (
         <li key={index}>
-          <Link href={``}>{page}</Link>
+          <Link
+            className="inline-block rounded-sm bg-gray-100 p-2"
+            href={`?page=${page}&&limit=${dataPerPage}`}
+          >
+            {page}
+          </Link>
         </li>
       ))}
     </ul>

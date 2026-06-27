@@ -1,17 +1,28 @@
-import { getTopLeaderboardData } from "@/lib/dal/db-query";
-import { dateTimeToString } from "@/lib/utils";
 import { Trophy } from "lucide-react";
+import { getTopLeaderboardData, leaderboardCount } from "@/lib/dal/db-query";
+import { dateTimeToString } from "@/lib/utils";
 import Pagination from "@/components/pagination";
 
 type LeaderboardMapPageProps = {
   params: Promise<{ mapId: string }>;
+  searchParams: Promise<{ [key: string]: string | undefined | string[] }>;
 };
 
 export default async function LeaderboardMapPage({
   params,
+  searchParams,
 }: LeaderboardMapPageProps) {
   const { mapId } = await params;
-  const leaderboardData = await getTopLeaderboardData(10, Number(mapId));
+  const queryParams = await searchParams;
+  const page = Number(queryParams.page) || 1;
+  const limit = Number(queryParams.limit) || 10;
+  const skipData = limit * (page - 1);
+  const leaderboardData = await getTopLeaderboardData(
+    limit,
+    Number(mapId),
+    skipData,
+  );
+  const totalLeaderboardData = await leaderboardCount();
   return (
     <div>
       <h1 className="flex items-center justify-center gap-2 text-xl md:text-3xl">
@@ -63,6 +74,9 @@ export default async function LeaderboardMapPage({
             ))}
         </tbody>
       </table>
+      {leaderboardData && (
+        <Pagination totalData={totalLeaderboardData} dataPerPage={limit} />
+      )}
     </div>
   );
 }
