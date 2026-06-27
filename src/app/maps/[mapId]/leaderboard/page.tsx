@@ -1,14 +1,13 @@
 import { Trophy } from "lucide-react";
 
 type LeaderboardMapPageProps = {
-  params: Promise<{ mapId: string }>;
+  params: Promise<{ map: string }>;
 };
 
 export default async function LeaderboardMapPage({
   params,
 }: LeaderboardMapPageProps) {
-  const { mapId } = await params;
-  console.log({ mapId });
+  const { map } = await params;
   return (
     <div>
       <h1 className="flex items-center justify-center gap-2 text-xl md:text-3xl">

@@ -11,11 +11,11 @@ export async function getMaps() {
   }
 }
 
-export async function getMapByName(mapName: string) {
+export async function getMapById(mapId: number) {
   try {
-    const map = await prisma.map.findFirst({
+    const map = await prisma.map.findUnique({
       where: {
-        name: mapName,
+        id: mapId,
       },
       include: {
         characters: true,
@@ -23,7 +23,7 @@ export async function getMapByName(mapName: string) {
     });
     return map;
   } catch (error) {
-    console.error(`error on getting ${mapName} map data`, error);
+    console.error(`error on getting ${mapId} map data`, error);
   }
 }
 

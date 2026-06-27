@@ -32,7 +32,7 @@ export default async function Game() {
                 </figcaption>
               </figure>
               <Link
-                href={`/maps/${item.name}`}
+                href={`/maps/${item.id}`}
                 className="inline-block self-center rounded-lg bg-cyan-400 px-2 py-3 hover:cursor-pointer"
               >
                 Start game
