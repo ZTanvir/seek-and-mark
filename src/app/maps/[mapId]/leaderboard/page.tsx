@@ -2,6 +2,7 @@ import { Trophy } from "lucide-react";
 import { getTopLeaderboardData, leaderboardCount } from "@/lib/dal/db-query";
 import { dateTimeToString } from "@/lib/utils";
 import Pagination from "@/components/pagination";
+import Navbar from "@/components/navbar";
 
 type LeaderboardMapPageProps = {
   params: Promise<{ mapId: string }>;
@@ -25,7 +26,10 @@ export default async function LeaderboardMapPage({
   const totalLeaderboardData = await leaderboardCount();
   return (
     <div>
-      <h1 className="flex items-center justify-center gap-2 text-xl md:text-3xl">
+      <header>
+        <Navbar />
+      </header>
+      <h1 className="my-4 flex items-center justify-center gap-2 text-xl md:text-3xl">
         <span>
           <Trophy color="gold" />
         </span>
