@@ -1,13 +1,16 @@
+import { getTopLeaderboardData } from "@/lib/dal/db-query";
+import { dateTimeToString } from "@/lib/utils";
 import { Trophy } from "lucide-react";
 
 type LeaderboardMapPageProps = {
-  params: Promise<{ map: string }>;
+  params: Promise<{ mapId: string }>;
 };
 
 export default async function LeaderboardMapPage({
   params,
 }: LeaderboardMapPageProps) {
-  const { map } = await params;
+  const { mapId } = await params;
+  const leaderboardData = await getTopLeaderboardData(10, Number(mapId));
   return (
     <div>
       <h1 className="flex items-center justify-center gap-2 text-xl md:text-3xl">
@@ -37,9 +40,26 @@ export default async function LeaderboardMapPage({
           </tr>
         </thead>
         <tbody className="divide-y divide-gray-200 bg-white">
-          <tr className="transition-colors hover:bg-gray-50">
-            <td className="px-6 py-4 font-medium text-gray-900">John Doe</td>
-          </tr>
+          {leaderboardData &&
+            leaderboardData.map((leader, index) => (
+              <tr
+                key={leader.id}
+                className="transition-colors hover:bg-gray-50"
+              >
+                <td className="px-6 py-4 font-medium text-gray-900">
+                  {index + 1}
+                </td>
+                <td className="px-6 py-4 font-medium text-gray-900">
+                  {leader.username}
+                </td>
+                <td className="px-6 py-4 font-medium text-gray-900">
+                  {dateTimeToString(leader.endTime)}
+                </td>
+                <td className="px-6 py-4 font-medium text-gray-900 capitalize">
+                  {leader.map.name}
+                </td>
+              </tr>
+            ))}
         </tbody>
       </table>
     </div>

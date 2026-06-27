@@ -18,11 +18,12 @@ model User {
 }
 
 model Map {
-  id           Int         @id @default(autoincrement())
-  name         String      @unique
+  id           Int           @id @default(autoincrement())
+  name         String        @unique
   thumbnailUrl String
   imageUrl     String
-  createdAt    DateTime    @default(now())
+  createdAt    DateTime      @default(now())
+  leaderboards Leaderboard[]
   users        User[]
   characters   Character[]
 }
@@ -46,5 +47,6 @@ model Leaderboard {
   username   String
   endTime    DateTime @db.Time()
   durationMs Int
-  user       User?    @relation(fields: [userId], references: [id])
+  user       User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  map        Map      @relation(fields: [mapId], references: [id], onDelete: Cascade)
 }

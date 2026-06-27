@@ -6,7 +6,6 @@ import { useEffect, useState } from "react";
 import { getTopScorerFromLeaderboard } from "@/actions/game";
 import { Leaderboard } from "@/generated/prisma/client";
 import { dateTimeToString } from "@/lib/utils";
-import { useParams } from "next/navigation";
 
 type LeaderboardModal = {
   isOpenLeaderboardModal: boolean;

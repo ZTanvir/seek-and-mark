@@ -50,7 +50,11 @@ export async function insertLeaderboard(leaderboard: Omit<Leaderboard, "id">) {
   }
 }
 
-export async function getTopLeaderboardData(top: number, mapId: number) {
+export async function getTopLeaderboardData(
+  top: number,
+  mapId: number,
+  skip?: number,
+) {
   try {
     const leaderboard = await prisma.leaderboard.findMany({
       where: {
@@ -58,6 +62,14 @@ export async function getTopLeaderboardData(top: number, mapId: number) {
       },
       orderBy: [{ durationMs: "asc" }, { username: "asc" }],
       take: top,
+      skip: !skip ? 0 : skip,
+      include: {
+        map: {
+          select: {
+            name: true,
+          },
+        },
+      },
     });
     return leaderboard;
   } catch (error) {
