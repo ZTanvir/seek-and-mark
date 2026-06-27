@@ -74,8 +74,12 @@ export default async function LeaderboardMapPage({
             ))}
         </tbody>
       </table>
-      {leaderboardData && (
-        <Pagination totalData={totalLeaderboardData} dataPerPage={limit} />
+      {leaderboardData && totalLeaderboardData && (
+        <Pagination
+          totalData={totalLeaderboardData}
+          dataPerPage={limit}
+          currentPage={page}
+        />
       )}
     </div>
   );
