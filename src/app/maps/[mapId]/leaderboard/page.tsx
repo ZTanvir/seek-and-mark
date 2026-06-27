@@ -1,6 +1,7 @@
 import { getTopLeaderboardData } from "@/lib/dal/db-query";
 import { dateTimeToString } from "@/lib/utils";
 import { Trophy } from "lucide-react";
+import Pagination from "@/components/pagination";
 
 type LeaderboardMapPageProps = {
   params: Promise<{ mapId: string }>;
