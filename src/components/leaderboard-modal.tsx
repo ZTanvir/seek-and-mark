@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { getTopScorerFromLeaderboard } from "@/actions/game";
 import { Leaderboard } from "@/generated/prisma/client";
 import { dateTimeToString } from "@/lib/utils";
+import { useParams } from "next/navigation";
 
 type LeaderboardModal = {
   isOpenLeaderboardModal: boolean;
@@ -90,7 +91,7 @@ export default function LeaderboardModal({
             </button>
             <Link
               className="rounded-xl bg-blue-600 px-5 py-2 text-center font-bold text-white transition-colors duration-300 hover:bg-blue-500 focus:bg-blue-500"
-              href="/leaderboard"
+              href={`/maps/${mapId}/leaderboard`}
             >
               Leaderboard
             </Link>

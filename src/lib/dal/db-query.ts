@@ -56,7 +56,7 @@ export async function getTopLeaderboardData(top: number, mapId: number) {
       where: {
         mapId,
       },
-      orderBy: { durationMs: "asc" },
+      orderBy: [{ durationMs: "asc" }, { username: "asc" }],
       take: top,
     });
     return leaderboard;
