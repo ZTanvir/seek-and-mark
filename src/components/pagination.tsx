@@ -19,7 +19,7 @@ export default function Pagination({
       {pagination.map((page, index) => (
         <li key={index}>
           <Link
-            className="inline-block rounded-sm bg-gray-100 p-2"
+            className="inline-block rounded-sm bg-gray-100 px-3 py-1"
             href={`?page=${page}&&limit=${dataPerPage}`}
           >
             {page}
