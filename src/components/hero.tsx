@@ -14,23 +14,23 @@ export default function HeroSection() {
         sizes="100vw"
         placeholder="blur"
         priority
-        className="object-cover z-0 "
+        className="z-0 object-cover"
       />
-      <div className="absolute inset-0 bg-black/60 z-10"></div>
+      <div className="absolute inset-0 z-10 bg-black/60"></div>
       <Container>
         <div className="relative z-20 h-full">
           <header>
             <Navbar />
           </header>
-          <div className="mt-14 md:mt-0 h-full flex flex-col justify-center items-center">
-            <h1 className="text-white text-center text-4xl font-bold capitalize">
+          <div className="mt-14 flex h-full flex-col items-center justify-center md:mt-0">
+            <h1 className="text-center text-4xl font-bold text-white capitalize">
               Welcome to Seek And Mark
             </h1>
             <Link
-              className="bg-purple-500 font-semibold hover:bg-purple-400 px-8 mt-2 py-3 text-xl text-white rounded"
-              href="/games"
+              className="mt-2 rounded bg-purple-500 px-8 py-3 text-xl font-semibold text-white hover:bg-purple-400"
+              href="/maps"
             >
-              Games
+              Maps
             </Link>
           </div>
         </div>
