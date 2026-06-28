@@ -5,3 +5,8 @@ export const ValidateCharacterSchema = z.object({
   xAxis: z.number("xAxis is not a number"),
   yAxis: z.number("yAxis is not a number"),
 });
+
+export const TopScorerSchema = z.object({
+  top: z.number("Top is not a number."),
+  mapId: z.number("Map id not a number."),
+});

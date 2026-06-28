@@ -2,7 +2,10 @@
 import { getCharacterById, getTopLeaderboardData } from "@/lib/dal/db-query";
 import { Leaderboard } from "@/generated/prisma/client";
 import { insertLeaderboard } from "@/lib/dal/db-query";
-import { ValidateCharacterSchema } from "@/lib/schemas/game-schema";
+import {
+  ValidateCharacterSchema,
+  TopScorerSchema,
+} from "@/lib/schemas/game-schema";
 
 export async function validateCharacter(
   characterId: unknown,
@@ -50,7 +53,17 @@ export async function addLeaderboard(leaderboard: Omit<Leaderboard, "id">) {
   await insertLeaderboard(leaderboard);
 }
 
-export async function getTopScorerFromLeaderboard(top: number, mapId: number) {
-  const topScorer = await getTopLeaderboardData(top, mapId);
-  return topScorer;
+export async function getTopScorerFromLeaderboard(
+  top: unknown,
+  mapId: unknown,
+) {
+  const result = TopScorerSchema.safeParse({ top, mapId });
+
+  if (!result.success) {
+    console.error(result.error.issues);
+  } else {
+    const { top, mapId } = result.data;
+    const topScorer = await getTopLeaderboardData(top, mapId);
+    return topScorer;
+  }
 }

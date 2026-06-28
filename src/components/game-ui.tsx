@@ -54,16 +54,12 @@ export default function GameUi({
 
   async function handleClickInside(characterId: number) {
     if (!characterLocation) return;
+
     const result = await validateCharacter(
-      "characterId",
-      "characterLocation.xPercent",
-      "characterLocation.yPercent",
+      characterId,
+      characterLocation.xPercent,
+      characterLocation.yPercent,
     );
-    // const result = await validateCharacter(
-    //   characterId,
-    //   characterLocation.xPercent,
-    //   characterLocation.yPercent,
-    // );
     if (result.success) {
       addToast(result.message, "success");
       const updatedCharacters = characters.map((character) =>
