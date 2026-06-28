@@ -8,7 +8,6 @@ export default async function GamePlayPage({
   params: Promise<{ mapId: string }>;
 }) {
   const { mapId } = await params;
-
   const mapData = await getMapById(Number(mapId));
   return (
     <div className="cursor-custom relative h-full w-full">
