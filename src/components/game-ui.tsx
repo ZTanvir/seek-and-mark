@@ -47,6 +47,7 @@ export default function GameUi({
   const countdownTimerRef = useRef<HTMLSpanElement>(null!);
   useClickOutside(selectCharacterRef, handleClickOutside);
   const { addToast } = useToastContext();
+
   function handleClickOutside() {
     setCharacterBoxState((prev) => ({ ...prev, visible: false }));
   }
@@ -54,11 +55,15 @@ export default function GameUi({
   async function handleClickInside(characterId: number) {
     if (!characterLocation) return;
     const result = await validateCharacter(
-      characterId,
-      characterLocation.xPercent,
-      characterLocation.yPercent,
+      "characterId",
+      "characterLocation.xPercent",
+      "characterLocation.yPercent",
     );
-    console.log("result validation:", result);
+    // const result = await validateCharacter(
+    //   characterId,
+    //   characterLocation.xPercent,
+    //   characterLocation.yPercent,
+    // );
     if (result.success) {
       addToast(result.message, "success");
       const updatedCharacters = characters.map((character) =>
@@ -100,7 +105,6 @@ export default function GameUi({
     const adjustMouseCenterPoint = 10;
     const xAxis = event.pageX + adjustMouseCenterPoint;
     const yAxis = event.pageY + adjustMouseCenterPoint;
-    console.log("coordinate", { x: event.pageX, y: event.pageY });
     setCharacterBoxState({ x: xAxis, y: yAxis, visible: true });
   }
 
@@ -112,7 +116,6 @@ export default function GameUi({
     const yPixel = event.clientY - rect.top;
     const xPercent = ((xPixel / rect.width) * 100).toFixed(2);
     const yPercent = ((yPixel / rect.height) * 100).toFixed(2);
-    console.log("pixel", xPercent, yPercent);
     setCharacterLocation({
       xPercent: parseFloat(xPercent),
       yPercent: parseFloat(yPercent),

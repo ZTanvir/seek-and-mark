@@ -27,8 +27,6 @@ export default function GameContainer({ map, characters }: GameContainerProps) {
     userName: string,
     time: string,
   ) => {
-    console.log("Handle game state:", gameStart, userName, time);
-
     setGameState({ gameStart, userName, time });
   };
   const handleLeaderBoardModal = (isOpenModal: boolean) => {
