@@ -41,18 +41,18 @@ export default function CountDownTimer({
   }, [startCountDown]);
 
   return (
-    <section className="relative w-3xs overflow-hidden rounded-xl border-2 border-purple-500 lg:w-xs">
+    <section className="relative h-full w-full overflow-hidden rounded-xl border-2 border-purple-500">
       <Image
         preload={true}
         src={countDownBg}
         className="h-full w-full"
-        alt="countdown timer background "
+        alt="countdown timer background"
       />
       <div className="absolute top-0 right-0 z-2 flex h-full basis-[45%] items-center justify-center bg-black/60 p-2">
         <AlarmClock className="text-purple-400" size={40} />
         <span
           ref={ref}
-          className="ml-2 text-sm font-bold text-purple-400 md:text-xl lg:text-2xl"
+          className="ml-2 text-lg font-bold text-purple-400 md:text-xl lg:text-2xl"
         >
           {timer}
         </span>

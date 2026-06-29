@@ -122,14 +122,19 @@ export default function GameUi({
     <div onClick={handleAreaClick} className="relative min-h-screen w-full">
       <header
         ref={headerRef}
-        className="fixed z-1 flex w-full justify-between p-4"
+        className="fixed z-1 flex w-full justify-between gap-x-4 p-4"
       >
-        <Logo />
+        <div className="hidden md:block">
+          <Logo />
+        </div>
         <div className="flex gap-4">
           {characters.map((character) => (
-            <div key={character.id} className="relative h-[75px] w-[90px]">
+            <div
+              key={character.id}
+              className="relative w-[60px] sm:h-[75px] sm:w-[90px]"
+            >
               {character.isFound && (
-                <div className="absolute inset-0 z-1 rounded-xl bg-black/60"></div>
+                <div className="absolute inset-0 z-1 rounded-xl bg-black/80"></div>
               )}
               <Image
                 src={character.avatarUrl}
@@ -141,10 +146,12 @@ export default function GameUi({
             </div>
           ))}
         </div>
-        <CountDownTimer
-          ref={countdownTimerRef}
-          startCountDown={gameState.gameStart}
-        />
+        <div className="max-w-[200px] sm:max-w-xs">
+          <CountDownTimer
+            ref={countdownTimerRef}
+            startCountDown={gameState.gameStart}
+          />
+        </div>
       </header>
       <Image
         onClick={handleImageClick}
