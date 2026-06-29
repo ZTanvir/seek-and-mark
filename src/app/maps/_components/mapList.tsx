@@ -1,19 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { Map } from "@/generated/prisma/client";
+import { getMaps } from "@/lib/dal/db-query";
 
-type MapList = {
-  maps: Map[];
-};
+export default async function MapList() {
+  const maps = await getMaps();
 
-export default function MapList({ maps }: MapList) {
-  return (
-    <>
-      {maps.map((item) => (
-        <Map key={item.id} map={item} />
-      ))}
-    </>
-  );
+  return <>{maps && maps.map((item) => <Map key={item.id} map={item} />)}</>;
 }
 type MapProps = {
   map: Map;
