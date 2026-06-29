@@ -18,20 +18,26 @@ export default async function LeaderboardMapPage({
   const page = Number(queryParams.page) || 1;
   const limit = Number(queryParams.limit) || 10;
   return (
-    <div>
+    <div className="h-full w-full">
       <header>
         <Navbar />
       </header>
-      <h1 className="my-4 flex items-center justify-center gap-2 text-xl md:text-3xl">
+      <h1 className="my-6 flex items-center justify-center gap-2 text-xl font-bold text-white md:text-3xl">
         <span>
-          <Trophy color="gold" />
+          <Trophy color="gold" size={40} />
         </span>
         Top achievers
         <span>
-          <Trophy color="gold" />
+          <Trophy color="gold" size={40} />
         </span>
       </h1>
-      <Suspense fallback={<Loading />}>
+      <Suspense
+        fallback={
+          <div className="h-[50vh] w-full">
+            <Loading />
+          </div>
+        }
+      >
         <LeaderboardTable mapId={mapId} page={page} limit={limit} />
       </Suspense>
     </div>

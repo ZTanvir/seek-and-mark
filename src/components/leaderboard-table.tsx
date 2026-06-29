@@ -67,6 +67,7 @@ export default async function LeaderboardTable({
           totalData={totalLeaderboardData}
           dataPerPage={limit}
           currentPage={page}
+          classname="my-4"
         />
       )}
     </div>

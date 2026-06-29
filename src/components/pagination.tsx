@@ -6,19 +6,26 @@ type PaginationProps = {
   totalData: number;
   dataPerPage: number;
   currentPage: number;
+  classname: string;
 };
 
 export default function Pagination({
   totalData,
   dataPerPage,
   currentPage,
+  classname,
 }: PaginationProps) {
   const pagination = [];
   for (let index = 0; index < Math.ceil(totalData / dataPerPage); index++) {
     pagination[index] = index + 1;
   }
   return (
-    <ul className="my-2 flex flex-wrap items-center justify-center gap-2">
+    <ul
+      className={cn(
+        "flex flex-wrap items-center justify-center gap-2",
+        classname,
+      )}
+    >
       {pagination.map((page, index) => (
         <li key={index}>
           <Link
