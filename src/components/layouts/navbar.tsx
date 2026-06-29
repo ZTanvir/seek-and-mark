@@ -22,7 +22,7 @@ export default function Navbar() {
         </div>
         <div
           className={cn(
-            "hidden flex-col space-y-2 font-semibold md:flex md:flex-row md:items-center md:gap-6 md:space-y-0 md:space-x-4",
+            "hidden flex-col gap-y-2 font-semibold md:flex md:flex-row md:items-center md:gap-6 md:gap-x-4 md:gap-y-0",
             toggleNavbar && "flex",
           )}
         >
