@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import Logo from "./logo";
+import Logo from "../logo";
 import NavLink from "./navLink";
 import { HamburgerMenuIcon } from "@radix-ui/react-icons";
 import { cn } from "@/lib/utils";
@@ -28,7 +28,6 @@ export default function Navbar() {
         >
           <NavLink url="/">Home</NavLink>
           <NavLink url="/maps">Maps</NavLink>
-          <NavLink url="/#about">About</NavLink>
           <NavLink url="/login">Login</NavLink>
           <NavLink url="/signup">Sign up</NavLink>
         </div>

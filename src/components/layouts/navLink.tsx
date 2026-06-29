@@ -11,13 +11,12 @@ type NavLinkProps = {
 
 export default function NavLink({ children, className, url }: NavLinkProps) {
   const pathname = usePathname();
-  const isActive = pathname.startsWith(url);
-  // console.log("is active", url, pathname, isActive);
+  const isActive = pathname.endsWith(url);
   return (
     <Link
       className={cn(
         className,
-        "hover:text-purple-500 hover:bg-purple-200 py-2 md:hover:bg-transparent transition-colors duration-200",
+        "py-2 transition-colors duration-200 hover:bg-purple-200 hover:text-purple-500 md:hover:bg-transparent",
         isActive ? "text-purple-500" : "text-white",
       )}
       href={url}

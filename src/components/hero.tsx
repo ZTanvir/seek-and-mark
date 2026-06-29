@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Navbar from "./navbar";
+import Navbar from "./layouts/navbar";
 import Image from "next/image";
 import heroImage from "../../public/images/carl-raw-m3hn2Kn5Bns-unsplash.jpg";
 import Container from "./container";

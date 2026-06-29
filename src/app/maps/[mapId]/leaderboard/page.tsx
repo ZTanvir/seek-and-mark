@@ -1,5 +1,5 @@
 import { Trophy } from "lucide-react";
-import Navbar from "@/components/navbar";
+import Navbar from "@/components/layouts/navbar";
 import { Suspense } from "react";
 import LeaderboardTable from "@/components/leaderboard-table";
 import Loading from "../loading";
