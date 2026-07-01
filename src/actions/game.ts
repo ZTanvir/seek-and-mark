@@ -5,7 +5,7 @@ import { insertLeaderboard } from "@/lib/dal/db-query";
 import {
   ValidateCharacterSchema,
   TopScorerSchema,
-} from "@/lib/schemas/game-schema";
+} from "@/lib/zod-schemas/game-schema";
 
 export async function validateCharacter(
   characterId: unknown,

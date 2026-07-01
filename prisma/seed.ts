@@ -1,11 +1,11 @@
 import prisma from "@/lib/prisma";
+import { env } from "@/env";
 
 // add map
 async function seedMap() {
   await prisma.map.deleteMany();
   await prisma.character.deleteMany({});
-  const storageBaseUrl =
-    "https://mwwersnziqamcoulatdp.supabase.co/storage/v1/object/public/seek_and_mark";
+  const storageBaseUrl = env.SUPABASE_STORAGE_BASE_URL;
   const mapsData = [
     {
       name: "robocity",
