@@ -1,5 +1,4 @@
 import prisma from "@/lib/prisma";
-import { Map } from "@/generated/prisma/client";
 
 // add map
 async function seedMap() {

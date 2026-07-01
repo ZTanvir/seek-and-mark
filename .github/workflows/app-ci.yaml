@@ -1,0 +1,25 @@
+name: Seek and mark ci
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build_app:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 22
+
+      - name: Check style
+        run: npm run lint
+      - name: Install dependencies
+        run: npm i
+      - name: Check build
+        run: npm run build
