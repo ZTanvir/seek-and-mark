@@ -10,7 +10,7 @@ export default function Navbar() {
   return (
     <nav className="sticky top-0 w-full bg-purple-900 md:bg-transparent">
       <div className="flex flex-col gap-6 md:flex-row">
-        <div className="flex justify-between pt-2 md:mr-auto">
+        <div className="flex justify-between px-1 pt-2 md:mr-auto">
           <Logo />
           <HamburgerMenuIcon
             onClick={() => setToggleNavbar((toggle) => !toggle)}
@@ -22,7 +22,7 @@ export default function Navbar() {
         </div>
         <div
           className={cn(
-            "hidden flex-col gap-y-2 font-semibold md:flex md:flex-row md:items-center md:gap-6 md:gap-x-4 md:gap-y-0",
+            "hidden flex-col gap-y-2 px-1 font-semibold md:flex md:flex-row md:items-center md:gap-x-8 md:gap-y-0",
             toggleNavbar && "flex",
           )}
         >
