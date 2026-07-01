@@ -2,7 +2,12 @@ name: Seek and mark ci
 
 on:
   push:
-    branches: [main]
+    branches:
+      - seekAndMark
+  pull_request:
+    branches:
+      - main
+    types: [opened, synchronize]
 
 jobs:
   build_app:
