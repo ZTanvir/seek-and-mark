@@ -39,3 +39,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Prisma Generated Client
+src/generated/
+
+# Ignore all local VS Code configurations
+.vscode/*
