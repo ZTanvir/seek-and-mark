@@ -3,15 +3,15 @@ name: Seek and mark ci
 on:
   push:
     branches:
-      - seekAndMark
+      - main
   pull_request:
     branches:
       - main
-    types: [opened, synchronize]
+    types: [opened, synchronize, closed]
 
 jobs:
-  build_app:
-    runs-on: ubuntu-latest
+  simple_ci_cd_pipeline:
+    runs-on: ubuntu-22.04
 
     steps:
       - name: Checkout code
@@ -30,3 +30,21 @@ jobs:
         run: npm run lint
       - name: Check build
         run: npm run build
+
+  bump_version:
+    needs: [simple_ci_cd_pipeline]
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-22.04
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ github.event.pull_request.merge_commit_sha }}
+          fetch-depth: "0"
+      - name: Bump version and push tag
+        uses: anothrNick/github-tag-action@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG_PREFIX: v
+          PRERELEASE: true
