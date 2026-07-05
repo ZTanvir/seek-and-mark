@@ -38,6 +38,16 @@ jobs:
           DATABASE_URL: ${{ secrets.DATABASE_URL}}
           SUPABASE_STORAGE_BASE_URL: ${{secrets.SUPABASE_STORAGE_BASE_URL}}
 
+      - name: Send ci status notification
+        uses: sarisia/actions-status-discord@v1
+        if: failure()
+        with:
+          webhook: ${{ secrets.DISCORD_WEBHOOK }}
+          status: ${{ job.status }}
+          content: "Hey <@316957968476405780>"
+          title: "Ci Check"
+          color: 0xff0000
+
   bump_version:
     needs: [simple_ci_cd_pipeline]
     if: github.event.pull_request.merged == true
@@ -55,3 +65,13 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           TAG_PREFIX: v
           PRERELEASE: true
+
+      - name: Send new version update notification
+        uses: sarisia/actions-status-discord@v1
+        if: success()
+        with:
+          webhook: ${{ secrets.DISCORD_WEBHOOK }}
+          status: ${{ job.status }}
+          content: "Hey <@316957968476405780>"
+          title: "New version of `software` is ready!"
+          color: 0xff91a4
