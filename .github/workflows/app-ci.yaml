@@ -60,6 +60,7 @@ jobs:
           ref: ${{ github.event.pull_request.merge_commit_sha }}
           fetch-depth: "0"
       - name: Bump version and push tag
+        id: tag_bump
         uses: anothrNick/github-tag-action@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -74,4 +75,6 @@ jobs:
           status: ${{ job.status }}
           content: "Hey <@316957968476405780>"
           title: "New version of `software` is ready!"
+          description: |
+            Version `${{ steps.tag_bump.outputs.new_tag }}`
           color: 0xff91a4
