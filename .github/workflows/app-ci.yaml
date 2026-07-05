@@ -73,7 +73,7 @@ jobs:
         with:
           webhook: ${{ secrets.DISCORD_WEBHOOK }}
           status: ${{ job.status }}
-          content: "Hey <@316957968476405780>"
+          content: "Hi <@316957968476405780>"
           title: "New version of `software` is ready!"
           description: |
             Version `${{ steps.tag_bump.outputs.new_tag }}`
