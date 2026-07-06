@@ -28,7 +28,7 @@ export default function Navbar() {
         >
           <NavLink url="/">Home</NavLink>
           <NavLink url="/maps">Maps</NavLink>
-          <NavLink url="/login">Login</NavLink>
+          <NavLink url="/signin">Login</NavLink>
           <NavLink url="/signup">Sign up</NavLink>
         </div>
       </div>
