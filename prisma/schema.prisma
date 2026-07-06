@@ -1,0 +1,52 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id             Int           @id @default(autoincrement())
+  username       String
+  email          String        @unique
+  hashedPassword String
+  createdAt      DateTime      @default(now())
+  maps           Map[]
+  scores         Leaderboard[]
+}
+
+model Map {
+  id           Int           @id @default(autoincrement())
+  name         String        @unique
+  thumbnailUrl String
+  imageUrl     String
+  createdAt    DateTime      @default(now())
+  leaderboards Leaderboard[]
+  users        User[]
+  characters   Character[]
+}
+
+model Character {
+  id        Int    @id @default(autoincrement())
+  name      String
+  avatarUrl String
+  xMin      Float
+  yMin      Float
+  xMax      Float
+  yMax      Float
+  map       Map    @relation(fields: [mapId], references: [id], onDelete: Cascade)
+  mapId     Int
+}
+
+model Leaderboard {
+  id         Int      @id @default(autoincrement())
+  userId     Int?
+  mapId      Int
+  username   String
+  endTime    DateTime @db.Time()
+  durationMs Int
+  user       User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  map        Map      @relation(fields: [mapId], references: [id], onDelete: Cascade)
+}
