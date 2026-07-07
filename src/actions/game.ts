@@ -1,4 +1,5 @@
 "use server";
+
 import { getCharacterById, getTopLeaderboardData } from "@/lib/dal/db-query";
 import { Leaderboard } from "@/generated/prisma/client";
 import { insertLeaderboard } from "@/lib/dal/db-query";

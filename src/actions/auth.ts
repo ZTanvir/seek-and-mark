@@ -1,6 +1,7 @@
 "use server";
+
 import { initialSignInState } from "@/components/signin-form";
-export function signIn(
+export async function signIn(
   prevState: typeof initialSignInState,
   formData: FormData,
 ) {
