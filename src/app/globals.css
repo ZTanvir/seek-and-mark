@@ -2,6 +2,7 @@
 
 @theme {
   --cursor-custom: url("/images/target-cursor-red.png"), auto;
+  --color-brand-blue: hsl(221, 69%, 14%, 1);
 }
 
 body {
