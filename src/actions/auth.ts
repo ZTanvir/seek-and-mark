@@ -19,6 +19,5 @@ export async function signIn(prevState: SignInState, formData: FormData) {
   return {
     success: true,
     message: "Logged in successfully.",
-    inputs: result.data,
   };
 }

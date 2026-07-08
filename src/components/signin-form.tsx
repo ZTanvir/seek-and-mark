@@ -1,12 +1,19 @@
 "use client";
 
-import { useActionState, useState, startTransition } from "react";
+import {
+  useActionState,
+  useState,
+  startTransition,
+  useEffect,
+  useRef,
+} from "react";
 import { signIn } from "@/actions/auth";
 import Link from "next/link";
 import * as z from "zod";
 import { SignInSchema } from "@/lib/zod-schemas/auth-schema";
 import { SignInState } from "@/types/auth";
 import { useToastContext } from "@/hooks/context";
+import { EyeOff, Eye } from "lucide-react";
 
 const initialSignInState: SignInState = {
   success: false,
@@ -27,6 +34,8 @@ export default function SignInForm() {
     initialSignInState,
   );
   const [errors, setErrors] = useState<null | FormErrors>(null);
+  const [isDisplayPassword, setIsDisplayPassword] = useState(false);
+  const formEl = useRef<HTMLFormElement>(null!);
   const { addToast } = useToastContext();
 
   const handleForm = (event: React.SubmitEvent<HTMLFormElement>) => {
@@ -37,24 +46,31 @@ export default function SignInForm() {
       password: formData.get("password"),
     };
 
-    // const result = SignInSchema.safeParse(rawData);
-    // if (!result.success) {
-    //   const flattened = z.flattenError(result.error);
-    //   setErrors(flattened.fieldErrors);
-    // } else {
-    //   setErrors(null);
-    startTransition(() => {
-      dispatchAction(formData);
+    const result = SignInSchema.safeParse(rawData);
+    if (!result.success) {
+      const flattened = z.flattenError(result.error);
+      setErrors(flattened.fieldErrors);
+    } else {
+      setErrors(null);
+      startTransition(() => {
+        dispatchAction(formData);
+      });
+    }
+  };
+
+  useEffect(() => {
+    if (state.message) {
       if (state.success) {
         addToast(state.message, "success");
+        formEl.current.reset();
       } else {
         addToast(state.message, "error");
       }
-    });
-    // }
-  };
+    }
+  }, [state]);
+
   return (
-    <form className="space-y-2" onSubmit={handleForm}>
+    <form ref={formEl} className="space-y-2" onSubmit={handleForm}>
       <div className="space-y-1">
         <label htmlFor="email">Email address</label>
         <input
@@ -66,15 +82,21 @@ export default function SignInForm() {
         />
         {errors?.email && <p className="text-red-400">{errors.email[0]}</p>}
       </div>
-      <div className="space-y-1">
+      <div className="relative space-y-1">
         <label htmlFor="password">Password</label>
         <input
           className="w-full rounded-lg border border-gray-500 px-3 py-1"
-          type="password"
+          type={isDisplayPassword ? "text" : "password"}
           name="password"
           id="password"
           defaultValue={state.inputs?.password}
         />
+        <span
+          onClick={() => setIsDisplayPassword((prev) => !prev)}
+          className="absolute right-0 mx-3 my-1 cursor-pointer text-gray-700"
+        >
+          {isDisplayPassword ? <EyeOff /> : <Eye />}
+        </span>
         {errors?.password && (
           <p className="text-red-400">{errors.password[0]}</p>
         )}
