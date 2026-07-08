@@ -6,6 +6,7 @@ import Link from "next/link";
 import * as z from "zod";
 import { SignInSchema } from "@/lib/zod-schemas/auth-schema";
 import { SignInState } from "@/types/auth";
+import { useToastContext } from "@/hooks/context";
 
 const initialSignInState: SignInState = {
   success: false,
@@ -26,7 +27,8 @@ export default function SignInForm() {
     initialSignInState,
   );
   const [errors, setErrors] = useState<null | FormErrors>(null);
-  console.log("state", state);
+  const { addToast } = useToastContext();
+
   const handleForm = (event: React.SubmitEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.target);
@@ -35,16 +37,21 @@ export default function SignInForm() {
       password: formData.get("password"),
     };
 
-    const result = SignInSchema.safeParse(rawData);
-    if (!result.success) {
-      const flattened = z.flattenError(result.error);
-      setErrors(flattened.fieldErrors);
-    } else {
-      setErrors(null);
-      startTransition(() => {
-        dispatchAction(formData);
-      });
-    }
+    // const result = SignInSchema.safeParse(rawData);
+    // if (!result.success) {
+    //   const flattened = z.flattenError(result.error);
+    //   setErrors(flattened.fieldErrors);
+    // } else {
+    //   setErrors(null);
+    startTransition(() => {
+      dispatchAction(formData);
+      if (state.success) {
+        addToast(state.message, "success");
+      } else {
+        addToast(state.message, "error");
+      }
+    });
+    // }
   };
   return (
     <form className="space-y-2" onSubmit={handleForm}>
@@ -55,6 +62,7 @@ export default function SignInForm() {
           type="text"
           name="email"
           id="email"
+          defaultValue={state.inputs?.email}
         />
         {errors?.email && <p className="text-red-400">{errors.email[0]}</p>}
       </div>
@@ -65,16 +73,20 @@ export default function SignInForm() {
           type="password"
           name="password"
           id="password"
+          defaultValue={state.inputs?.password}
         />
         {errors?.password && (
           <p className="text-red-400">{errors.password[0]}</p>
         )}
       </div>
       <button
-        className="mx-auto cursor-pointer rounded-lg bg-blue-800 px-6 py-2 text-white transition-colors duration-300 hover:bg-blue-700 focus:bg-blue-700"
+        className="flex cursor-pointer items-center gap-x-2 rounded-lg bg-blue-800 px-6 py-2 text-white transition-colors duration-300 hover:bg-blue-700 focus:bg-blue-700"
         disabled={isPending}
         type="submit"
       >
+        {isPending && (
+          <span className="h-4 w-4 animate-spin rounded-full border-2 border-blue-400 border-t-transparent"></span>
+        )}
         LOGIN
       </button>
       <p>

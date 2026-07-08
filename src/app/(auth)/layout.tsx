@@ -1,4 +1,6 @@
 import Navbar from "@/components/layouts/navbar";
+import ToastContainer from "@/components/toast-container";
+import { ToastContextProvider } from "@/context/ToastContext";
 export default function AuthLayout({
   children,
 }: Readonly<{
@@ -9,7 +11,12 @@ export default function AuthLayout({
       <header>
         <Navbar />
       </header>
-      <main className="flex flex-1 flex-col">{children}</main>
+      <main className="flex flex-1 flex-col">
+        <ToastContextProvider>
+          {children}
+          <ToastContainer />
+        </ToastContextProvider>
+      </main>
     </div>
   );
 }
