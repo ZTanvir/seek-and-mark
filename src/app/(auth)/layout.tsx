@@ -5,11 +5,11 @@ export default function AuthLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="bg-brand-blue min-h-screen w-full">
+    <div className="bg-brand-blue flex min-h-screen w-full flex-col">
       <header>
         <Navbar />
       </header>
-      <main>{children}</main>
+      <main className="flex flex-1 flex-col">{children}</main>
     </div>
   );
 }

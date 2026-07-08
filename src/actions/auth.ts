@@ -1,13 +1,20 @@
 "use server";
 
-import { initialSignInState } from "@/components/signin-form";
-export async function signIn(
-  prevState: typeof initialSignInState,
-  formData: FormData,
-) {
+import { SignInSchema } from "@/lib/zod-schemas/auth-schema";
+import { SignInState } from "@/types/auth";
+
+export async function signIn(prevState: SignInState, formData: FormData) {
   const rawData = {
     email: formData.get("email"),
     password: formData.get("password"),
   };
-  return { success: false, message: "", inputs: rawData };
+  const result = SignInSchema.safeParse(rawData);
+  if (!result.success) {
+    return {
+      success: false,
+      message: "",
+      inputs: rawData,
+    };
+  }
+  return { success: true, message: "Logged in successfully.", inputs: rawData };
 }

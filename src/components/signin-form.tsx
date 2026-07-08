@@ -1,14 +1,19 @@
 "use client";
 
-import { useActionState, useState } from "react";
+import { useActionState, useState, startTransition } from "react";
 import { signIn } from "@/actions/auth";
 import Link from "next/link";
 import * as z from "zod";
 import { SignInSchema } from "@/lib/zod-schemas/auth-schema";
+import { SignInState } from "@/types/auth";
 
-export const initialSignInState = {
+const initialSignInState: SignInState = {
   success: false,
   message: "",
+  inputs: {
+    email: "",
+    password: "",
+  },
 };
 type FormErrors = {
   email?: string[];
@@ -21,7 +26,7 @@ export default function SignInForm() {
     initialSignInState,
   );
   const [errors, setErrors] = useState<null | FormErrors>(null);
-
+  console.log("state", state);
   const handleForm = (event: React.SubmitEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.target);
@@ -29,14 +34,16 @@ export default function SignInForm() {
       email: formData.get("email"),
       password: formData.get("password"),
     };
-    console.log("rawdata", rawData);
+
     const result = SignInSchema.safeParse(rawData);
     if (!result.success) {
       const flattened = z.flattenError(result.error);
-      console.log(flattened);
       setErrors(flattened.fieldErrors);
     } else {
       setErrors(null);
+      startTransition(() => {
+        dispatchAction(formData);
+      });
     }
   };
   return (
@@ -55,7 +62,7 @@ export default function SignInForm() {
         <label htmlFor="password">Password</label>
         <input
           className="w-full rounded-lg border border-gray-500 px-3 py-1"
-          type="text"
+          type="password"
           name="password"
           id="password"
         />
