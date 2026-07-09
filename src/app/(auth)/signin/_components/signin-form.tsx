@@ -35,7 +35,6 @@ export default function SignInForm() {
     initialSignInState,
   );
   const [errors, setErrors] = useState<null | FormErrors>(null);
-  const [isDisplayPassword, setIsDisplayPassword] = useState(false);
   const formEl = useRef<HTMLFormElement>(null!);
   const { addToast } = useToastContext();
 

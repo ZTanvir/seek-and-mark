@@ -1,9 +1,24 @@
 "use client";
+
+import Link from "next/link";
+
 export default function SignUpForm() {
+  const isPending = false;
+
+  const handleSubmitForm = (event: React.SubmitEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    const rawData = {
+      username: formData.get("username"),
+      email: formData.get("email"),
+      password: formData.get("password"),
+    };
+    console.log(rawData);
+  };
   return (
     <form
       className="mx-auto mt-[200px] max-w-lg space-y-2 rounded-xl bg-neutral-100 px-6 py-4"
-      action=""
+      onSubmit={handleSubmitForm}
     >
       <legend className="text-center text-3xl font-bold">Sign up</legend>
       <div className="space-y-1">
@@ -24,7 +39,22 @@ export default function SignUpForm() {
           id="email"
         />
       </div>
-      <div></div>
+      <button
+        className="flex cursor-pointer items-center gap-x-2 rounded-lg bg-blue-800 px-6 py-2 text-white transition-colors duration-300 hover:bg-blue-700 focus:bg-blue-700"
+        disabled={isPending}
+        type="submit"
+      >
+        {isPending && (
+          <span className="h-4 w-4 animate-spin rounded-full border-2 border-blue-400 border-t-transparent"></span>
+        )}
+        Sign up
+      </button>
+      <p>
+        Already have an account?{" "}
+        <Link href="/signin" className="text-blue-500 underline">
+          Log in
+        </Link>
+      </p>
     </form>
   );
 }
