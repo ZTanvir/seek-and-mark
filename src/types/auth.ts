@@ -6,3 +6,11 @@ export type SignInState = {
     password: string;
   };
 };
+
+export type SignUpState = Omit<SignInState, "input"> & {
+  inputs?: {
+    username: string;
+    email: string;
+    password: string;
+  };
+};

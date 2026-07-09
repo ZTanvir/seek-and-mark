@@ -3,7 +3,17 @@
 import { SignUpSchema } from "@/lib/zod-schemas/auth-schema";
 import Link from "next/link";
 import * as z from "zod";
-import { useState } from "react";
+import {
+  startTransition,
+  useActionState,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
+import { signUp } from "@/actions/auth";
+import { SignUpState } from "@/types/auth";
+import PasswordInput from "@/components/form/password-input";
+import { useToastContext } from "@/hooks/context";
 
 type SignUpErrors = {
   username?: string[];
@@ -11,9 +21,24 @@ type SignUpErrors = {
   password?: string[];
 };
 
+const initialState: SignUpState = {
+  success: false,
+  message: "",
+  inputs: {
+    username: "",
+    email: "",
+    password: "",
+  },
+};
+
 export default function SignUpForm() {
-  const isPending = false;
+  const [state, dispatchAction, isPending] = useActionState(
+    signUp,
+    initialState,
+  );
   const [errors, setErrors] = useState<SignUpErrors | null>(null);
+  const signUpFormEl = useRef<HTMLFormElement>(null!);
+  const { addToast } = useToastContext();
 
   const handleSubmitForm = (event: React.SubmitEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -28,12 +53,24 @@ export default function SignUpForm() {
       const formatErrors = z.flattenError(result.error);
       setErrors(formatErrors.fieldErrors);
     } else {
-      console.log(result.data);
+      setErrors(null);
+      startTransition(() => dispatchAction(rawData));
     }
-    console.log(rawData);
   };
+  useEffect(() => {
+    if (state.message) {
+      if (state.success) {
+        addToast(state.message, "success");
+        signUpFormEl.current.reset();
+      } else {
+        addToast(state.message, "error");
+      }
+    }
+  }, [state]);
+
   return (
     <form
+      ref={signUpFormEl}
       className="mx-auto mt-[200px] max-w-lg space-y-2 rounded-xl bg-neutral-100 px-6 py-4"
       onSubmit={handleSubmitForm}
     >
@@ -47,6 +84,7 @@ export default function SignUpForm() {
           type="text"
           name="username"
           id="username"
+          defaultValue={state.inputs?.username}
         />
         {errors?.username && (
           <p className="text-red-400">{errors.username[0]}</p>
@@ -59,9 +97,14 @@ export default function SignUpForm() {
           type="text"
           name="email"
           id="email"
+          defaultValue={state.inputs?.email}
         />
         {errors?.email && <p className="text-red-400">{errors.email[0]}</p>}
       </div>
+      <PasswordInput
+        defaultValue={state.inputs?.password}
+        errorMessage={errors?.password ? errors.password[0] : undefined}
+      />
       <button
         className="flex cursor-pointer items-center gap-x-2 rounded-lg bg-blue-800 px-6 py-2 text-white transition-colors duration-300 hover:bg-blue-700 focus:bg-blue-700"
         disabled={isPending}

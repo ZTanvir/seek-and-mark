@@ -99,7 +99,7 @@ export default function SignInForm() {
       </button>
       <p>
         Don&apos;t have an account?{" "}
-        <Link href="/register" className="text-blue-500 underline">
+        <Link href="/signup" className="text-blue-500 underline">
           Sign-up
         </Link>
       </p>
