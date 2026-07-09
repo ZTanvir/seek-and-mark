@@ -14,6 +14,7 @@ import { SignInSchema } from "@/lib/zod-schemas/auth-schema";
 import { SignInState } from "@/types/auth";
 import { useToastContext } from "@/hooks/context";
 import { EyeOff, Eye } from "lucide-react";
+import PasswordInput from "@/components/form/password-input";
 
 const initialSignInState: SignInState = {
   success: false,
@@ -82,25 +83,11 @@ export default function SignInForm() {
         />
         {errors?.email && <p className="text-red-400">{errors.email[0]}</p>}
       </div>
-      <div className="relative space-y-1">
-        <label htmlFor="password">Password</label>
-        <input
-          className="w-full rounded-lg border border-gray-500 px-3 py-1"
-          type={isDisplayPassword ? "text" : "password"}
-          name="password"
-          id="password"
-          defaultValue={state.inputs?.password}
-        />
-        <span
-          onClick={() => setIsDisplayPassword((prev) => !prev)}
-          className="absolute right-0 mx-3 my-1 cursor-pointer text-gray-700"
-        >
-          {isDisplayPassword ? <EyeOff /> : <Eye />}
-        </span>
-        {errors?.password && (
-          <p className="text-red-400">{errors.password[0]}</p>
-        )}
-      </div>
+      <PasswordInput
+        defaultValue={state.inputs?.password}
+        errorMessage={errors?.password ? errors.password[0] : undefined}
+      />
+
       <button
         className="flex cursor-pointer items-center gap-x-2 rounded-lg bg-blue-800 px-6 py-2 text-white transition-colors duration-300 hover:bg-blue-700 focus:bg-blue-700"
         disabled={isPending}

@@ -1,4 +1,4 @@
-import SignInForm from "@/components/signin-form";
+import SignInForm from "@/app/(auth)/signin/_components/signin-form";
 export default function SigninPage() {
   return (
     <div className="p-3">
