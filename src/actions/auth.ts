@@ -4,6 +4,8 @@ import { SignInSchema, SignUpSchema } from "@/lib/zod-schemas/auth-schema";
 import { SignInState } from "@/types/auth";
 import { signIn } from "@/auth";
 import { AuthError } from "next-auth";
+import { createNewUser } from "@/lib/dal/auth-query";
+import { saltAndHashPassword } from "@/lib/utils";
 
 export async function signInUser(prevState: SignInState, formData: unknown) {
   let rawData = undefined;
@@ -53,8 +55,15 @@ export async function signUpUser(prevState: unknown, formData: unknown) {
       inputs: rawData,
     };
   }
-  return {
-    success: true,
-    message: "Registration successful.",
-  };
+  const pwHashed = saltAndHashPassword(result.data.password);
+  const newUser = await createNewUser(
+    result.data.username,
+    result.data.email,
+    pwHashed,
+  );
+  if (newUser)
+    return {
+      success: true,
+      message: "Registration successful.",
+    };
 }

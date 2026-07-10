@@ -54,11 +54,11 @@ export default function SignUpForm() {
       setErrors(formatErrors.fieldErrors);
     } else {
       setErrors(null);
-      startTransition(() => dispatchAction(rawData));
+      startTransition(() => dispatchAction(formData));
     }
   };
   useEffect(() => {
-    if (state.message) {
+    if (state?.message) {
       if (state.success) {
         addToast(state.message, "success");
         signUpFormEl.current.reset();
@@ -67,6 +67,8 @@ export default function SignUpForm() {
       }
     }
   }, [state]);
+
+  console.log("state", state);
 
   return (
     <form
@@ -84,7 +86,7 @@ export default function SignUpForm() {
           type="text"
           name="username"
           id="username"
-          defaultValue={state.inputs?.username}
+          defaultValue={state?.inputs?.username}
         />
         {errors?.username && (
           <p className="text-red-400">{errors.username[0]}</p>
@@ -97,12 +99,12 @@ export default function SignUpForm() {
           type="text"
           name="email"
           id="email"
-          defaultValue={state.inputs?.email}
+          defaultValue={state?.inputs?.email}
         />
         {errors?.email && <p className="text-red-400">{errors.email[0]}</p>}
       </div>
       <PasswordInput
-        defaultValue={state.inputs?.password}
+        defaultValue={state?.inputs?.password}
         errorMessage={errors?.password ? errors.password[0] : undefined}
       />
       <button
