@@ -8,7 +8,7 @@ datasource db {
 }
 
 model User {
-  id             Int           @id @default(autoincrement())
+  id             String        @id @default(cuid())
   username       String
   email          String        @unique
   hashedPassword String
@@ -42,7 +42,7 @@ model Character {
 
 model Leaderboard {
   id         Int      @id @default(autoincrement())
-  userId     Int?
+  userId     String?
   mapId      Int
   username   String
   endTime    DateTime @db.Time()

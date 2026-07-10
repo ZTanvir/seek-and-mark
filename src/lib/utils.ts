@@ -1,5 +1,6 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
+import bcrypt from "bcryptjs";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -38,4 +39,16 @@ export function dateTimeToString(dateTime: Date) {
   const seconds = String(dateTime.getUTCSeconds()).padStart(2, "0");
 
   return `${hours}:${minutes}:${seconds}`;
+}
+
+// Storing text password in raw form is dangerous for security
+export function saltAndHashPassword(password: string) {
+  const salt = bcrypt.genSaltSync(10);
+  const hash = bcrypt.hashSync(password, salt);
+  return hash;
+}
+
+// To check user entered password has matched with db password
+export function isPasswordMatched(hashPassword: string, password: string) {
+  return bcrypt.compareSync(hashPassword, password);
 }

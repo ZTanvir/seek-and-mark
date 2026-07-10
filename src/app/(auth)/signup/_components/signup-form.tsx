@@ -10,7 +10,7 @@ import {
   useRef,
   useState,
 } from "react";
-import { signUp } from "@/actions/auth";
+import { signUpUser } from "@/actions/auth";
 import { SignUpState } from "@/types/auth";
 import PasswordInput from "@/components/form/password-input";
 import { useToastContext } from "@/hooks/context";
@@ -33,7 +33,7 @@ const initialState: SignUpState = {
 
 export default function SignUpForm() {
   const [state, dispatchAction, isPending] = useActionState(
-    signUp,
+    signUpUser,
     initialState,
   );
   const [errors, setErrors] = useState<SignUpErrors | null>(null);

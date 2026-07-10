@@ -2,8 +2,10 @@
 
 import { SignInSchema, SignUpSchema } from "@/lib/zod-schemas/auth-schema";
 import { SignInState } from "@/types/auth";
+import { signIn } from "@/auth";
+import { AuthError } from "next-auth";
 
-export async function signIn(prevState: SignInState, formData: unknown) {
+export async function signInUser(prevState: SignInState, formData: unknown) {
   let rawData = undefined;
 
   if (formData instanceof FormData) {
@@ -21,13 +23,20 @@ export async function signIn(prevState: SignInState, formData: unknown) {
       inputs: rawData,
     };
   }
+  try {
+    await signIn("credentials", result.data);
+  } catch (error) {
+    if (error instanceof AuthError) {
+      console.log(error);
+    }
+  }
   return {
     success: true,
     message: "Logged in successfully.",
   };
 }
 
-export async function signUp(prevState: unknown, formData: unknown) {
+export async function signUpUser(prevState: unknown, formData: unknown) {
   let rawData = undefined;
   if (formData instanceof FormData) {
     rawData = {

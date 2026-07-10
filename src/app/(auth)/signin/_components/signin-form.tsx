@@ -7,13 +7,12 @@ import {
   useEffect,
   useRef,
 } from "react";
-import { signIn } from "@/actions/auth";
+import { signInUser } from "@/actions/auth";
 import Link from "next/link";
 import * as z from "zod";
 import { SignInSchema } from "@/lib/zod-schemas/auth-schema";
 import { SignInState } from "@/types/auth";
 import { useToastContext } from "@/hooks/context";
-import { EyeOff, Eye } from "lucide-react";
 import PasswordInput from "@/components/form/password-input";
 
 const initialSignInState: SignInState = {
@@ -31,7 +30,7 @@ type FormErrors = {
 
 export default function SignInForm() {
   const [state, dispatchAction, isPending] = useActionState(
-    signIn,
+    signInUser,
     initialSignInState,
   );
   const [errors, setErrors] = useState<null | FormErrors>(null);
