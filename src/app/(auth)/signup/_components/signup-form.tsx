@@ -71,7 +71,7 @@ export default function SignUpForm() {
   return (
     <form
       ref={signUpFormEl}
-      className="mx-auto mt-[200px] max-w-lg space-y-2 rounded-xl bg-neutral-100 px-6 py-4"
+      className="mx-auto mt-[100px] max-w-lg space-y-2 rounded-xl bg-neutral-100 px-6 py-4 md:mt-[200px]"
       onSubmit={handleSubmitForm}
     >
       <legend className="text-center text-xl font-bold md:text-3xl">

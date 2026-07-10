@@ -4,7 +4,7 @@ import { SignInSchema, SignUpSchema } from "@/lib/zod-schemas/auth-schema";
 import { SignInState } from "@/types/auth";
 
 export async function signIn(prevState: SignInState, formData: unknown) {
-  let rawData = null;
+  let rawData = undefined;
 
   if (formData instanceof FormData) {
     rawData = {
@@ -28,7 +28,7 @@ export async function signIn(prevState: SignInState, formData: unknown) {
 }
 
 export async function signUp(prevState: unknown, formData: unknown) {
-  let rawData = null;
+  let rawData = undefined;
   if (formData instanceof FormData) {
     rawData = {
       username: (formData.get("username") ?? "") as string,
