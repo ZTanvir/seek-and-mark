@@ -4,7 +4,7 @@ import { SignInSchema, SignUpSchema } from "@/lib/zod-schemas/auth-schema";
 import { SignInState } from "@/types/auth";
 import { signIn } from "@/auth";
 import { AuthError } from "next-auth";
-import { createNewUser } from "@/lib/dal/auth-query";
+import { createNewUser, getUserByEmail } from "@/lib/dal/auth-query";
 import { saltAndHashPassword } from "@/lib/utils";
 
 export async function signInUser(prevState: SignInState, formData: unknown) {
@@ -55,12 +55,33 @@ export async function signUpUser(prevState: unknown, formData: unknown) {
       inputs: rawData,
     };
   }
+
+  const isUserExist = await getUserByEmail(result.data.email);
+  if (isUserExist) {
+    return {
+      success: false,
+      message: "User with similar email already exists.",
+      inputs: rawData,
+    };
+  }
   const pwHashed = saltAndHashPassword(result.data.password);
   const newUser = await createNewUser(
     result.data.username,
     result.data.email,
     pwHashed,
   );
+  if (newUser) {
+    try {
+      await signIn("credentials", {
+        email: result.data.email,
+        password: result.data.password,
+        redirect: false,
+      });
+    } catch (error) {
+      console.error("Login failed:", error);
+    }
+  }
+
   if (newUser)
     return {
       success: true,

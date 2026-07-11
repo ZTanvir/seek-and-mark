@@ -50,5 +50,5 @@ export function saltAndHashPassword(password: string) {
 
 // To check user entered password has matched with db password
 export function isPasswordMatched(hashPassword: string, password: string) {
-  return bcrypt.compareSync(hashPassword, password);
+  return bcrypt.compareSync(password, hashPassword);
 }

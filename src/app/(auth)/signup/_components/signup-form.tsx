@@ -14,6 +14,7 @@ import { signUpUser } from "@/actions/auth";
 import { SignUpState } from "@/types/auth";
 import PasswordInput from "@/components/form/password-input";
 import { useToastContext } from "@/hooks/context";
+import { useRouter } from "next/navigation";
 
 type SignUpErrors = {
   username?: string[];
@@ -37,6 +38,7 @@ export default function SignUpForm() {
     initialState,
   );
   const [errors, setErrors] = useState<SignUpErrors | null>(null);
+  const router = useRouter();
   const signUpFormEl = useRef<HTMLFormElement>(null!);
   const { addToast } = useToastContext();
 
@@ -62,13 +64,12 @@ export default function SignUpForm() {
       if (state.success) {
         addToast(state.message, "success");
         signUpFormEl.current.reset();
+        router.push("/");
       } else {
         addToast(state.message, "error");
       }
     }
   }, [state]);
-
-  console.log("state", state);
 
   return (
     <form
