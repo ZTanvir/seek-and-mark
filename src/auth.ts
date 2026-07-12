@@ -22,7 +22,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           user.hashedPassword,
           result.data.password,
         );
-        console.log(user.hashedPassword, result.data.password);
         if (!isPasswordValid) {
           throw new Error("Invalid credentials");
         }
@@ -30,6 +29,22 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       },
     }),
   ],
+  callbacks: {
+    jwt({ token, user }) {
+      if (user) {
+        token.id = user.id as string;
+        token.username = user.username as string;
+      }
+      return token;
+    },
+    session({ session, token }) {
+      if (session.user) {
+        session.user.id = token.id as string;
+        session.user.username = token.username as string;
+      }
+      return session;
+    },
+  },
   pages: {
     signIn: "/signin",
   },

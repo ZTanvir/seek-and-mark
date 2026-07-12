@@ -34,17 +34,17 @@ export default function NavItems({ session }: NavItemsProps) {
         <NavLink url="/">Home</NavLink>
         <NavLink url="/maps">Maps</NavLink>
         {session?.user ? (
-          <div>
-            <span className="inline-block py-2 text-white">
-              {session.user.name}
-            </span>
+          <>
+            <div className="inline-block py-2 text-white capitalize">
+              {session.user.username}
+            </div>
             <button
               onClick={() => signOut()}
               className="text-white transition-colors duration-200 hover:cursor-pointer hover:bg-purple-200 hover:text-purple-500 md:rounded-lg md:bg-purple-500 md:px-2 md:py-1"
             >
               Logout
             </button>
-          </div>
+          </>
         ) : (
           <>
             <NavLink url="/signin">Login</NavLink>
