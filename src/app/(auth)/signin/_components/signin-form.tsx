@@ -80,6 +80,7 @@ export default function SignInForm() {
           type="text"
           name="email"
           id="email"
+          autoComplete="email"
           defaultValue={state.inputs?.email}
         />
         {errors?.email && <p className="text-red-400">{errors.email[0]}</p>}

@@ -87,6 +87,7 @@ export default function SignUpForm() {
           type="text"
           name="username"
           id="username"
+          autoComplete="username"
           defaultValue={state?.inputs?.username}
         />
         {errors?.username && (
@@ -100,6 +101,7 @@ export default function SignUpForm() {
           type="text"
           name="email"
           id="email"
+          autoComplete="email"
           defaultValue={state?.inputs?.email}
         />
         {errors?.email && <p className="text-red-400">{errors.email[0]}</p>}
