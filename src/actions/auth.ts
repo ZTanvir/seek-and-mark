@@ -81,7 +81,6 @@ export async function signUpUser(prevState: unknown, formData: unknown) {
       console.error("Login failed:", error);
     }
   }
-
   if (newUser)
     return {
       success: true,

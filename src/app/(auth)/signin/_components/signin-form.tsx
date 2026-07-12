@@ -14,6 +14,7 @@ import { SignInSchema } from "@/lib/zod-schemas/auth-schema";
 import { SignInState } from "@/types/auth";
 import { useToastContext } from "@/hooks/context";
 import PasswordInput from "@/components/form/password-input";
+import { useRouter } from "next/navigation";
 
 const initialSignInState: SignInState = {
   success: false,
@@ -34,6 +35,7 @@ export default function SignInForm() {
     initialSignInState,
   );
   const [errors, setErrors] = useState<null | FormErrors>(null);
+  const router = useRouter();
   const formEl = useRef<HTMLFormElement>(null!);
   const { addToast } = useToastContext();
 
@@ -62,6 +64,7 @@ export default function SignInForm() {
       if (state.success) {
         addToast(state.message, "success");
         formEl.current.reset();
+        router.push("/");
       } else {
         addToast(state.message, "error");
       }
