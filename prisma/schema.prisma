@@ -8,13 +8,13 @@ datasource db {
 }
 
 model User {
-  id             Int           @id @default(autoincrement())
+  id             String        @id @default(cuid())
   username       String
   email          String        @unique
   hashedPassword String
   createdAt      DateTime      @default(now())
-  maps           Map[]
   scores         Leaderboard[]
+  maps           Map[]         @relation("MapToUser")
 }
 
 model Map {
@@ -23,9 +23,9 @@ model Map {
   thumbnailUrl String
   imageUrl     String
   createdAt    DateTime      @default(now())
-  leaderboards Leaderboard[]
-  users        User[]
   characters   Character[]
+  leaderboards Leaderboard[]
+  users        User[]        @relation("MapToUser")
 }
 
 model Character {
@@ -36,17 +36,17 @@ model Character {
   yMin      Float
   xMax      Float
   yMax      Float
-  map       Map    @relation(fields: [mapId], references: [id], onDelete: Cascade)
   mapId     Int
+  map       Map    @relation(fields: [mapId], references: [id], onDelete: Cascade)
 }
 
 model Leaderboard {
   id         Int      @id @default(autoincrement())
-  userId     Int?
+  userId     String?
   mapId      Int
   username   String
-  endTime    DateTime @db.Time()
+  endTime    DateTime @db.Time(6)
   durationMs Int
-  user       User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
   map        Map      @relation(fields: [mapId], references: [id], onDelete: Cascade)
+  user       User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

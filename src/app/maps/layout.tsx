@@ -6,7 +6,7 @@ export default function GamesLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="min-h-screen w-full bg-[#0B1B3D]">
+    <div className="bg-brand-blue min-h-screen w-full">
       <ToastContextProvider>{children}</ToastContextProvider>
     </div>
   );
