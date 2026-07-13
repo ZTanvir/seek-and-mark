@@ -5,7 +5,7 @@ import { useState } from "react";
 import GameStartModal from "./game-start-modal";
 import LeaderboardModal from "./leaderboard-modal";
 import { shuffle } from "@/lib/utils";
-import { useGameUserName, useIsGameStart } from "@/store/game-store";
+import { useIsGameStart } from "@/store/game-store";
 
 type GameContainerProps = {
   map: Map;
@@ -13,23 +13,11 @@ type GameContainerProps = {
 };
 
 export default function GameContainer({ map, characters }: GameContainerProps) {
-  const [gameState, setGameState] = useState({
-    gameStart: false,
-    userName: "",
-    time: "",
-  });
   const [isOpenLeaderboardModal, setIsOpenLeaderboardModal] = useState(false);
-
+  const isGameStart = useIsGameStart();
   const charactersDisplay = 3;
   const roundCharacters = shuffle(characters).slice(0, charactersDisplay);
 
-  const handleGameState = (
-    gameStart: boolean,
-    userName: string,
-    time: string,
-  ) => {
-    setGameState({ gameStart, userName, time });
-  };
   const handleLeaderBoardModal = (isOpenModal: boolean) => {
     setIsOpenLeaderboardModal(isOpenModal);
   };
@@ -38,7 +26,7 @@ export default function GameContainer({ map, characters }: GameContainerProps) {
       <GameStartModal gameName={map.name} gameCharacters={roundCharacters} />
 
       <GameUi
-        key={gameState.gameStart ? 1 : 0}
+        key={isGameStart ? 1 : 0}
         map={map}
         mapCharacters={roundCharacters}
         handleLeaderBoardModal={handleLeaderBoardModal}
@@ -47,8 +35,6 @@ export default function GameContainer({ map, characters }: GameContainerProps) {
         mapId={map.id}
         isOpenLeaderboardModal={isOpenLeaderboardModal}
         handleLeaderBoardModal={handleLeaderBoardModal}
-        gameState={gameState}
-        handleGameState={handleGameState}
       />
     </>
   );

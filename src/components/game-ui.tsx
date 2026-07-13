@@ -183,6 +183,3 @@ export default function GameUi({
     </div>
   );
 }
-function useGameStore() {
-  throw new Error("Function not implemented.");
-}
