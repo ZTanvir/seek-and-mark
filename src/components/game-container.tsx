@@ -22,9 +22,7 @@ export default function GameContainer({ map, characters }: GameContainerProps) {
 
   const charactersDisplay = 3;
   const roundCharacters = shuffle(characters).slice(0, charactersDisplay);
-  const isGameStart = useIsGameStart();
-  const gameUserName = useGameUserName();
-  console.log(isGameStart, gameUserName);
+
   const handleGameState = (
     gameStart: boolean,
     userName: string,
@@ -37,11 +35,7 @@ export default function GameContainer({ map, characters }: GameContainerProps) {
   };
   return (
     <>
-      <GameStartModal
-        gameName={map.name}
-        gameCharacters={roundCharacters}
-        handleGameState={handleGameState}
-      />
+      <GameStartModal gameName={map.name} gameCharacters={roundCharacters} />
 
       <GameUi
         key={gameState.gameStart ? 1 : 0}

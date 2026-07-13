@@ -3,19 +3,17 @@ import Image from "next/image";
 import countDownBg from "../../public/images/countDownTimer.webp";
 import { Ref, useEffect, useState } from "react";
 import { AlarmClock } from "lucide-react";
+import { useIsGameStart } from "@/store/game-store";
 
 type CountDownTimerProps = {
-  startCountDown: boolean;
   ref: Ref<HTMLSpanElement>;
 };
 
-export default function CountDownTimer({
-  startCountDown,
-  ref,
-}: CountDownTimerProps) {
+export default function CountDownTimer({ ref }: CountDownTimerProps) {
   const [timer, setTimer] = useState("00:00:00");
+  const isGameStart = useIsGameStart();
   useEffect(() => {
-    if (!startCountDown) return;
+    if (!isGameStart) return;
     const formatTimer = (time: number, reset: number) => {
       if (time >= reset) {
         return `00`;
@@ -38,7 +36,7 @@ export default function CountDownTimer({
     }, 1000);
 
     return () => clearInterval(timerId);
-  }, [startCountDown]);
+  }, [isGameStart]);
 
   return (
     <section className="relative h-full w-full overflow-hidden rounded-xl border-2 border-purple-500">

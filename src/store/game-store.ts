@@ -10,7 +10,7 @@ type GameState = {
   };
 };
 
-const useGameStore = create<GameState>((set, get) => ({
+const useGameStore = create<GameState>((set) => ({
   isGameStart: false,
   userName: "",
   time: "",
