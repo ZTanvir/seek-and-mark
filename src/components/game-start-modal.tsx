@@ -6,20 +6,20 @@ import Image from "next/image";
 import modalBgImg from "../../public/images/modal-bg.jpg";
 import { Character } from "@/generated/prisma/client";
 import GameCharactersList from "./game-character-list";
+import { useGameControls } from "@/store/game-store";
 
 type GameStartModalProps = {
   gameName: string;
   gameCharacters: Character[];
-  handleGameState: (gameStart: boolean, userName: string, time: string) => void;
 };
 export default function GameStartModal({
   gameName,
   gameCharacters,
-  handleGameState,
 }: GameStartModalProps) {
   const [isOpen, setIsOpen] = useState(true);
   const [username, setUsername] = useState("");
   const [error, setError] = useState("");
+  const { addUserName, start } = useGameControls();
   return (
     <div>
       <Modal isOpen={isOpen}>
@@ -49,7 +49,8 @@ export default function GameStartModal({
                   setIsOpen(false);
                   setError("");
                 }
-                handleGameState(true, username, "");
+                addUserName(username);
+                start();
               }}
             >
               <input

@@ -33,7 +33,8 @@ export default function LeaderboardModal({
 
   useEffect(() => {
     const fetchLeaderBoard = async () => {
-      const leaders = await getTopScorerFromLeaderboard(5, mapId);
+      const displayTop = 5;
+      const leaders = await getTopScorerFromLeaderboard(displayTop, mapId);
       if (leaders) setLeaderBoard(leaders);
       setLoading(false);
     };

@@ -2,10 +2,10 @@
 import { Map, Character } from "@/generated/prisma/client";
 import GameUi from "./game-ui";
 import { useState } from "react";
-import type { GameState } from "@/types/components";
 import GameStartModal from "./game-start-modal";
 import LeaderboardModal from "./leaderboard-modal";
 import { shuffle } from "@/lib/utils";
+import { useGameUserName, useIsGameStart } from "@/store/game-store";
 
 type GameContainerProps = {
   map: Map;
@@ -13,15 +13,18 @@ type GameContainerProps = {
 };
 
 export default function GameContainer({ map, characters }: GameContainerProps) {
-  const [gameState, setGameState] = useState<GameState>({
+  const [gameState, setGameState] = useState({
     gameStart: false,
     userName: "",
     time: "",
   });
   const [isOpenLeaderboardModal, setIsOpenLeaderboardModal] = useState(false);
 
-  const roundCharacters = shuffle(characters).slice(0, 3);
-
+  const charactersDisplay = 3;
+  const roundCharacters = shuffle(characters).slice(0, charactersDisplay);
+  const isGameStart = useIsGameStart();
+  const gameUserName = useGameUserName();
+  console.log(isGameStart, gameUserName);
   const handleGameState = (
     gameStart: boolean,
     userName: string,
