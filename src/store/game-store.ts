@@ -7,6 +7,8 @@ type GameState = {
   actions: {
     addUserName: (name: string) => void;
     start: () => void;
+    stop: () => void;
+    setTimer: (currentTime: string) => void;
   };
 };
 
@@ -23,6 +25,11 @@ const useGameStore = create<GameState>((set) => ({
       set(() => ({
         isGameStart: true,
       })),
+    stop: () =>
+      set(() => ({
+        isGameStart: false,
+      })),
+    setTimer: (currentTime: string) => set(() => ({ time: currentTime })),
   },
 }));
 

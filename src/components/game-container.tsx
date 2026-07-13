@@ -41,8 +41,6 @@ export default function GameContainer({ map, characters }: GameContainerProps) {
         key={gameState.gameStart ? 1 : 0}
         map={map}
         mapCharacters={roundCharacters}
-        gameState={gameState}
-        handleGameState={handleGameState}
         handleLeaderBoardModal={handleLeaderBoardModal}
       />
       <LeaderboardModal

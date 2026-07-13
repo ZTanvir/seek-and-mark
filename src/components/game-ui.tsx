@@ -8,15 +8,13 @@ import { addLeaderboard, validateCharacter } from "@/actions/game";
 import { useToastContext } from "@/hooks/context";
 import GameCharactersList from "./game-character-list";
 import Logo from "./logo";
-import type { GameState } from "@/types/components";
 import { stringToDateTime } from "@/lib/utils";
 import { Map } from "@/generated/prisma/client";
+import { useGameControls, useGameUserName } from "@/store/game-store";
 
 type GameUi = {
   map: Map;
   mapCharacters: Character[];
-  gameState: GameState;
-  handleGameState: (gameStart: boolean, userName: string, time: string) => void;
   handleLeaderBoardModal: (isOpenModal: boolean) => void;
 };
 
@@ -28,8 +26,6 @@ type CharacterLocation = {
 export default function GameUi({
   map,
   mapCharacters,
-  gameState,
-  handleGameState,
   handleLeaderBoardModal,
 }: GameUi) {
   const [characterBoxState, setCharacterBoxState] = useState({
@@ -47,6 +43,8 @@ export default function GameUi({
   const countdownTimerRef = useRef<HTMLSpanElement>(null!);
   useClickOutside(selectCharacterRef, handleClickOutside);
   const { addToast } = useToastContext();
+  const { stop, setTimer } = useGameControls();
+  const gameUserName = useGameUserName();
 
   function handleClickOutside() {
     setCharacterBoxState((prev) => ({ ...prev, visible: false }));
@@ -80,11 +78,12 @@ export default function GameUi({
         await addLeaderboard({
           mapId: map.id,
           userId: null,
-          username: gameState.userName,
+          username: gameUserName,
           endTime: timeToDate,
           durationMs: timeToDate.getTime(),
         });
-        handleGameState(false, gameState.userName, countDownTime);
+        stop();
+        setTimer(countDownTime);
       }
     } else {
       addToast(result.message, "error");
@@ -147,10 +146,7 @@ export default function GameUi({
           ))}
         </div>
         <div className="max-w-[200px] sm:max-w-xs">
-          <CountDownTimer
-            ref={countdownTimerRef}
-            startCountDown={gameState.gameStart}
-          />
+          <CountDownTimer ref={countdownTimerRef} />
         </div>
       </header>
       <Image
@@ -186,4 +182,7 @@ export default function GameUi({
       )}
     </div>
   );
+}
+function useGameStore() {
+  throw new Error("Function not implemented.");
 }
