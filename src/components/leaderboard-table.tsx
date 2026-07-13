@@ -22,7 +22,7 @@ export default async function LeaderboardTable({
 
   return (
     <div>
-      <table className="text-md w-full table-auto text-left text-gray-500">
+      <table className="text-md w-full table-auto overflow-hidden rounded-lg text-left text-gray-500">
         <thead className="w-full border-b border-gray-200 bg-gray-50 text-sm font-semibold text-gray-700 uppercase">
           <tr>
             <th scope="col" className="px-6 py-4">
