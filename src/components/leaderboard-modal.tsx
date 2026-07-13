@@ -23,10 +23,9 @@ export default function LeaderboardModal({
   mapId,
 }: LeaderboardModal) {
   const [leaderBoard, setLeaderBoard] = useState<Leaderboard[] | null>(null);
-  const [loading, setLoading] = useState(true);
   const mapUserName = useGameUserName();
   const mapTime = useGameTime();
-  const { start, setTimer } = useGameControls();
+  const { start, stop, setTimer, addUserName } = useGameControls();
 
   function handleRetryBtn() {
     handleLeaderBoardModal(false);
@@ -34,13 +33,18 @@ export default function LeaderboardModal({
     start();
     setTimer("");
   }
+  // Reset the map when go to leaderboard page
+  function handleResetMap() {
+    stop();
+    setTimer("");
+    addUserName("");
+  }
 
   useEffect(() => {
     const fetchLeaderBoard = async () => {
       const displayTop = 5;
       const leaders = await getTopScorerFromLeaderboard(displayTop, mapId);
       if (leaders) setLeaderBoard(leaders);
-      setLoading(false);
     };
     fetchLeaderBoard();
   }, [isOpenLeaderboardModal, mapId]);
@@ -63,7 +67,6 @@ export default function LeaderboardModal({
                 <span className="flex-1">USERNAME</span>
                 <span className="flex-1">TIME</span>
               </p>
-              {loading && <p>Loading...</p>}
               {leaderBoard &&
                 leaderBoard.map((leader) => (
                   <p
@@ -94,6 +97,7 @@ export default function LeaderboardModal({
               Retry
             </button>
             <Link
+              onClick={handleResetMap}
               className="rounded-xl bg-blue-600 px-5 py-2 text-center font-bold text-white transition-colors duration-300 hover:bg-blue-500 focus:bg-blue-500"
               href={`/maps/${mapId}/leaderboard`}
             >
