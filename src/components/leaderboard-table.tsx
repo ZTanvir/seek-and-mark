@@ -47,7 +47,7 @@ export default async function LeaderboardTable({
                 className="transition-colors hover:bg-gray-50"
               >
                 <td className="px-6 py-4 font-medium text-gray-900">
-                  {index + 1}
+                  {index + 1 + (page - 1) * 10}
                 </td>
                 <td className="px-6 py-4 font-medium text-gray-900">
                   {leader.username}

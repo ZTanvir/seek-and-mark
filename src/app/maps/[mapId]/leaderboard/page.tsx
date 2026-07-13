@@ -34,13 +34,7 @@ export default async function LeaderboardMapPage({
               <Trophy color="gold" size={40} />
             </span>
           </h1>
-          <Suspense
-            fallback={
-              <div className="h-[50vh] w-full">
-                <Loading />
-              </div>
-            }
-          >
+          <Suspense fallback={<Loading />}>
             <LeaderboardTable mapId={mapId} page={page} limit={limit} />
           </Suspense>
         </>
