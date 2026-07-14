@@ -7,6 +7,7 @@ import modalBgImg from "../../public/images/modal-bg.jpg";
 import { Character } from "@/generated/prisma/client";
 import GameCharactersList from "./game-character-list";
 import { useGameControls } from "@/store/game-store";
+import { useSession } from "next-auth/react";
 
 type GameStartModalProps = {
   gameName: string;
@@ -17,7 +18,9 @@ export default function GameStartModal({
   gameCharacters,
 }: GameStartModalProps) {
   const [isOpen, setIsOpen] = useState(true);
-  const [username, setUsername] = useState("");
+  const { data: session } = useSession();
+  const loggedInUsername = session?.user?.username || "";
+  const [username, setUsername] = useState(loggedInUsername);
   const [error, setError] = useState("");
   const { addUserName, start } = useGameControls();
   return (

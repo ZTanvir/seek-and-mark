@@ -11,6 +11,7 @@ import Logo from "./logo";
 import { stringToDateTime } from "@/lib/utils";
 import { Map } from "@/generated/prisma/client";
 import { useGameControls, useGameUserName } from "@/store/game-store";
+import { useSession } from "next-auth/react";
 
 type GameUi = {
   map: Map;
@@ -44,7 +45,8 @@ export default function GameUi({
   useClickOutside(selectCharacterRef, handleClickOutside);
   const { addToast } = useToastContext();
   const { stop, setTimer } = useGameControls();
-  const gameUserName = useGameUserName();
+  const mapUserName = useGameUserName();
+  const { data: session } = useSession();
 
   function handleClickOutside() {
     setCharacterBoxState((prev) => ({ ...prev, visible: false }));
@@ -74,11 +76,12 @@ export default function GameUi({
         handleLeaderBoardModal(true);
         const countDownTime = countdownTimerRef.current.textContent;
         const timeToDate = stringToDateTime(countDownTime);
+        const userId = session?.user.id || null;
         // add score to db leaderboard table
         await addLeaderboard({
           mapId: map.id,
-          userId: null,
-          username: gameUserName,
+          userId,
+          username: mapUserName,
           endTime: timeToDate,
           durationMs: timeToDate.getTime(),
         });
