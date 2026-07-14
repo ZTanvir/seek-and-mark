@@ -28,23 +28,26 @@ export default function LeaderboardModal({
   const { start, stop, setTimer, addUserName } = useGameControls();
 
   function handleRetryBtn() {
-    handleLeaderBoardModal(false);
     // reset game state
     start();
     setTimer("");
+    handleLeaderBoardModal(false);
   }
   // Reset the map when go to leaderboard page
   function handleResetMap() {
     stop();
     setTimer("");
     addUserName("");
+    handleLeaderBoardModal(false);
   }
 
   useEffect(() => {
     const fetchLeaderBoard = async () => {
-      const displayTop = 5;
-      const leaders = await getTopScorerFromLeaderboard(displayTop, mapId);
-      if (leaders) setLeaderBoard(leaders);
+      if (isOpenLeaderboardModal) {
+        const displayTop = 5;
+        const leaders = await getTopScorerFromLeaderboard(displayTop, mapId);
+        if (leaders) setLeaderBoard(leaders);
+      }
     };
     fetchLeaderBoard();
   }, [isOpenLeaderboardModal, mapId]);
