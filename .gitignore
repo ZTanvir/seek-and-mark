@@ -45,3 +45,6 @@ src/generated/
 
 # Ignore all local VS Code configurations
 .vscode/*
+
+# Unblock and allow committing the example template
+!.env.example
